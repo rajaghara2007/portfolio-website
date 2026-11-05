@@ -1,7 +1,53 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Play, Code2, Users, Star, Sparkles, Terminal, FileCode, CheckCircle2 } from 'lucide-react';
+import { letterAnimation, letterHover } from '../animations/transitions';
+
+const roles = [
+  'Full Stack Developer',
+  'Software Developer',
+  'AegisLens Architect',
+  'Frontend & Backend Engineer',
+];
 
 export default function Hero() {
+  // Typewriter effect state for "Full Stack Developer"
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [speed, setSpeed] = useState(90);
+
+  useEffect(() => {
+    const fullText = roles[roleIndex];
+
+    const timer = setTimeout(() => {
+      if (!isDeleting) {
+        // Typing characters
+        setDisplayedText(fullText.substring(0, displayedText.length + 1));
+        setSpeed(85);
+
+        if (displayedText.length + 1 === fullText.length) {
+          // Pause at complete word before backspacing
+          setTimeout(() => setIsDeleting(true), 2000);
+        }
+      } else {
+        // Deleting characters
+        setDisplayedText(fullText.substring(0, displayedText.length - 1));
+        setSpeed(40);
+
+        if (displayedText.length === 0) {
+          setIsDeleting(false);
+          setRoleIndex((prev) => (prev + 1) % roles.length);
+        }
+      }
+    }, speed);
+
+    return () => clearTimeout(timer);
+  }, [displayedText, isDeleting, roleIndex, speed]);
+
+  const firstName = 'Raj';
+  const lastName = 'Aghara';
+
   return (
     <section id="home" className="relative min-h-screen pt-28 pb-32 md:pt-36 md:pb-44 px-4 sm:px-6 lg:px-8 overflow-hidden flex items-center">
       
@@ -25,36 +71,120 @@ export default function Hero() {
           <div className="lg:col-span-6 space-y-6 text-center lg:text-left z-20">
             
             {/* Status Pill Badge (Exact match to reference) */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#0d1228]/85 border border-emerald-500/40 text-emerald-300 text-xs font-medium shadow-[0_0_20px_rgba(16,185,129,0.3)] backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, y: -15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#0d1228]/85 border border-emerald-500/40 text-emerald-300 text-xs font-medium shadow-[0_0_20px_rgba(16,185,129,0.3)] backdrop-blur-md"
+            >
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse" />
               <span>Available for Opportunities</span>
-            </div>
+            </motion.div>
 
-            {/* Main Headline */}
-            <div className="space-y-1">
-              <div className="text-3xl sm:text-4xl font-display font-medium text-slate-200">
-                Hi, I'm <span className="text-purple-400 animate-pulse font-normal">|</span>
-              </div>
-              <h1 className="text-5xl sm:text-7xl font-display font-extrabold tracking-tight text-white leading-none">
-                Raj <span className="text-gradient-name text-glow-purple">Aghara</span>
+            {/* Main Headline with Animated Text */}
+            <div className="space-y-1.5">
+              
+              {/* Animated "Hi, I'm" */}
+              <motion.div
+                initial={{ opacity: 0, x: -20, filter: 'blur(6px)' }}
+                animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="text-3xl sm:text-4xl font-display font-medium text-slate-200 flex items-center justify-center lg:justify-start gap-2"
+              >
+                <span>Hi, I'm</span>
+                <motion.span
+                  animate={{ opacity: [0, 1, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.1, ease: 'linear' }}
+                  className="text-purple-400 font-normal inline-block"
+                >
+                  |
+                </motion.span>
+              </motion.div>
+
+              {/* Animated "Raj Aghara" with Staggered Letter Entrance and Spring Hover */}
+              <h1 className="text-5xl sm:text-7xl font-display font-extrabold tracking-tight text-white leading-none flex flex-wrap items-center justify-center lg:justify-start gap-x-4 select-none py-1">
+                {/* First Name: Raj */}
+                <span className="inline-flex">
+                  {firstName.split('').map((char, index) => (
+                    <motion.span
+                      key={`first-${index}`}
+                      custom={index}
+                      variants={letterAnimation}
+                      initial="hidden"
+                      animate="visible"
+                      whileHover={letterHover}
+                      className="inline-block transition-colors cursor-default hover:text-cyan-300 hover:drop-shadow-[0_0_20px_rgba(0,245,255,0.8)]"
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </span>
+
+                {/* Last Name: Aghara */}
+                <span className="inline-flex">
+                  {lastName.split('').map((char, index) => (
+                    <motion.span
+                      key={`last-${index}`}
+                      custom={index + firstName.length + 1}
+                      variants={letterAnimation}
+                      initial="hidden"
+                      animate="visible"
+                      whileHover={letterHover}
+                      className="inline-block text-gradient-name text-glow-purple transition-colors cursor-default hover:drop-shadow-[0_0_30px_rgba(192,132,252,1)]"
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </span>
               </h1>
               
-              <div className="flex items-center justify-center lg:justify-start gap-4 pt-3">
-                <span className="text-xl sm:text-2xl font-display font-semibold text-slate-200">
-                  Full Stack Developer
-                </span>
-                <span className="h-[1.5px] w-24 sm:w-36 bg-gradient-to-r from-purple-500/80 via-cyan-400/50 to-transparent" />
-              </div>
+              {/* Animated "Full Stack Developer" with Typewriter & Blinking Cursor */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className="flex items-center justify-center lg:justify-start gap-4 pt-2.5"
+              >
+                <div className="text-xl sm:text-2xl font-display font-semibold text-slate-200 min-h-[2rem] flex items-center">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-100 via-purple-200 to-cyan-300 font-bold">
+                    {displayedText}
+                  </span>
+                  {/* Blinking Cyan & Purple Neon Cursor */}
+                  <motion.span
+                    animate={{ opacity: [1, 0, 1] }}
+                    transition={{ repeat: Infinity, duration: 0.8, ease: 'easeInOut' }}
+                    className="inline-block w-[3px] h-6 ml-1.5 rounded-full bg-gradient-to-b from-purple-400 to-cyan-400 shadow-[0_0_12px_#00f5ff]"
+                  />
+                </div>
+
+                {/* Expanding Glowing Horizon Accent Bar */}
+                <motion.span
+                  initial={{ scaleX: 0, opacity: 0 }}
+                  animate={{ scaleX: 1, opacity: 1 }}
+                  transition={{ delay: 0.7, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                  className="origin-left h-[2px] w-24 sm:w-36 bg-gradient-to-r from-purple-500/80 via-cyan-400/60 to-transparent shadow-[0_0_12px_rgba(168,85,247,0.6)] hidden sm:inline-block"
+                />
+              </motion.div>
             </div>
 
             {/* Subtitle */}
-            <p className="text-slate-300 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+              className="text-slate-300 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-light"
+            >
               I craft modern web experiences with code, creativity and innovation. Architect of AegisLens security intelligence platform.
-            </p>
+            </motion.p>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-              {/* Primary Glowing Neon Pill Button (Exact match to reference) */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.6 }}
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2"
+            >
+              {/* Primary Glowing Neon Pill Button */}
               <a
                 href="#projects"
                 className="btn-neon-pill inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-white font-semibold text-sm cursor-pointer shadow-lg hover:shadow-cyan-500/25 transition-all"
@@ -63,7 +193,7 @@ export default function Hero() {
                 <ArrowRight className="w-4 h-4 text-cyan-300" />
               </a>
 
-              {/* Secondary Circular Play Button (Exact match to reference) */}
+              {/* Secondary Circular Play Button */}
               <a
                 href="#resume"
                 className="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-[#0a0e24]/80 hover:bg-[#111738] border border-purple-500/30 hover:border-purple-400 text-slate-200 hover:text-white text-sm font-medium transition-all backdrop-blur-md shadow-md"
@@ -73,11 +203,15 @@ export default function Hero() {
                 </div>
                 <span>View Resume</span>
               </a>
-            </div>
+            </motion.div>
 
-            {/* Bottom 3 Glass Stats Cards (Exact match to reference) */}
-            <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-6 max-w-lg mx-auto lg:mx-0">
-              
+            {/* Bottom 3 Glass Stats Cards */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.85, duration: 0.6 }}
+              className="grid grid-cols-3 gap-3 sm:gap-4 pt-6 max-w-lg mx-auto lg:mx-0"
+            >
               {/* Stat 1 */}
               <div className="p-3.5 sm:p-4 rounded-2xl bg-[#0d1228]/80 border border-purple-500/30 backdrop-blur-md hover:border-purple-500/60 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.4)] group">
                 <div className="flex items-center gap-2 text-purple-400 font-bold text-base sm:text-xl font-display">
@@ -110,8 +244,7 @@ export default function Hero() {
                   Client Satisfaction
                 </div>
               </div>
-
-            </div>
+            </motion.div>
 
           </div>
 
@@ -245,7 +378,7 @@ export default function Hero() {
                 {/* Confident Smile */}
                 <path d="M205 242 Q222 254 238 242" stroke="#68341f" strokeWidth="2.5" fill="none" strokeLinecap="round" />
                 
-                {/* Facial Hair / Stubble Shadow (like image) */}
+                {/* Facial Hair / Stubble Shadow */}
                 <path d="M202 248 Q222 268 242 248" stroke="rgba(20,15,35,0.5)" strokeWidth="4" fill="none" strokeLinecap="round" />
 
                 {/* Volumetric Curly Modern Hair with Ambient Violet & Cyan Rim */}
@@ -263,7 +396,7 @@ export default function Hero() {
                 <path d="M165 110 Q145 95 160 85" stroke="#523d8c" strokeWidth="2" fill="none" />
               </svg>
 
-              {/* Floating Glass Card 1 (Top-Left): </> Coding... Code Snippet (Exact match to reference) */}
+              {/* Floating Glass Card 1 (Top-Left): </> Coding... Code Snippet */}
               <div className="absolute -top-6 -left-6 sm:-left-12 p-3 sm:p-4 rounded-2xl bg-[#090d24]/90 border border-purple-500/40 backdrop-blur-xl shadow-[0_0_30px_rgba(139,92,246,0.35)] animate-float z-30 w-44 sm:w-52">
                 <div className="flex items-center justify-between pb-2 mb-2 border-b border-purple-500/20 text-[11px] font-mono text-purple-300">
                   <div className="flex items-center gap-1.5">
@@ -285,7 +418,7 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Floating Glass Card 2 (Right): Tech Stack Badge List (Exact match to reference image) */}
+              {/* Floating Glass Card 2 (Right): Tech Stack Badge List */}
               <div className="absolute top-12 -right-4 sm:-right-8 p-3 sm:p-4 rounded-2xl bg-[#090d24]/90 border border-cyan-500/40 backdrop-blur-xl shadow-[0_0_30px_rgba(0,245,255,0.3)] animate-float-delayed z-30 space-y-2.5 w-36 sm:w-42">
                 {/* React */}
                 <div className="flex items-center gap-2.5 text-xs text-slate-200 hover:text-cyan-300 transition-colors">
@@ -302,7 +435,7 @@ export default function Hero() {
                   <span className="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-[10px] shadow-[0_0_8px_rgba(16,185,129,0.5)]">⬡</span>
                   <span className="font-medium text-xs">Node.js</span>
                 </div>
-                {/* Python (as seen in the reference image) */}
+                {/* Python */}
                 <div className="flex items-center gap-2.5 text-xs text-slate-200 hover:text-amber-300 transition-colors">
                   <span className="w-4 h-4 rounded-full bg-blue-500/20 text-amber-300 flex items-center justify-center font-bold text-[10px] shadow-[0_0_8px_rgba(245,158,11,0.5)]">🐍</span>
                   <span className="font-medium text-xs">Python</span>

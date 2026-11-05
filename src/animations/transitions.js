@@ -16,9 +16,39 @@ export const staggerContainer = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.12,
+      staggerChildren: 0.08,
       delayChildren: 0.05,
     },
+  },
+};
+
+export const letterAnimation = {
+  hidden: {
+    opacity: 0,
+    y: 35,
+    filter: 'blur(8px)',
+    scale: 0.8,
+  },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    scale: 1,
+    transition: {
+      delay: i * 0.045,
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  }),
+};
+
+export const letterHover = {
+  y: -8,
+  scale: 1.15,
+  transition: {
+    type: 'spring',
+    stiffness: 450,
+    damping: 12,
   },
 };
 
@@ -45,4 +75,3 @@ export const cyberGlowVariant = {
     transition: { duration: 0.3 },
   },
 };
-
