@@ -11,7 +11,7 @@ import Contact from './sections/Contact';
 import Footer from './components/Footer';
 import Cosmic3DScene from './components/Cosmic3DScene';
 import LogoPageTransition from './components/LogoPageTransition';
-import SpaceAiHUD from './components/SpaceAiHUD';
+import ScrollProgressBar from './components/ScrollProgressBar';
 import { useLenis } from './hooks/useLenis';
 
 export default function App() {
@@ -50,11 +50,11 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#04050d] text-slate-100 selection:bg-purple-600/40 selection:text-purple-200 relative overflow-x-hidden">
       
-      {/* 1. Interactive 3D Canvas (Space & AI Synapse System with zero text occlusion) */}
+      {/* 1. Interactive 3D Canvas (Space & AI Warp System with zero text occlusion) */}
       <Cosmic3DScene />
 
-      {/* 2. Space & AI Telemetry HUD (Fixed in outer margin gutters, zero text overlap) */}
-      <SpaceAiHUD />
+      {/* 2. Cyber Laser Scroll Progress Indicator */}
+      <ScrollProgressBar />
 
       {/* 3. Cinematic Logo Transition Overlay */}
       <LogoPageTransition

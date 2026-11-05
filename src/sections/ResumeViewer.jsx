@@ -38,6 +38,15 @@ export default function ResumeViewer({ resumePath = '/resume/Raj-Aghara-Resume.p
           {/* Subtle card top glowing light sheen */}
           <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-24 bg-gradient-to-b from-purple-500/20 to-transparent blur-2xl pointer-events-none" />
 
+          {/* Cyber Holographic Scanline Sweep on Scroll */}
+          <motion.div
+            initial={{ y: '-100%', opacity: 0 }}
+            whileInView={{ y: '300%', opacity: [0, 0.6, 0] }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.8, ease: 'easeInOut', delay: 0.2 }}
+            className="absolute left-0 right-0 h-16 bg-gradient-to-b from-transparent via-cyan-400/20 to-transparent pointer-events-none z-20"
+          />
+
           {/* Header Action Bar */}
           <div className="p-4 sm:p-6 border-b border-purple-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#080c22]/90 backdrop-blur-md">
             <div className="flex items-center gap-3">

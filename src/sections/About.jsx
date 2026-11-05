@@ -33,10 +33,10 @@ export default function About() {
           
           {/* Main Story Card (Left Column) */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -30, rotateY: -3 }}
+            whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-7 cosmic-card rounded-3xl p-6 sm:p-8 space-y-6 relative group overflow-hidden border border-purple-500/25 hover:border-purple-500/50"
           >
             {/* Subtle card top glowing light sheen */}
@@ -95,8 +95,8 @@ export default function About() {
             
             {/* Education Card */}
             <motion.div
-              initial={{ opacity: 0, x: 35 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, x: 30, rotateY: 3 }}
+              whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               className="cosmic-card rounded-3xl p-6 space-y-4 border border-purple-500/25 hover:border-purple-500/50 transition-all"

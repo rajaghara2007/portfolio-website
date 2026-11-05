@@ -72,11 +72,11 @@ export default function Projects() {
               <motion.div
                 key={project.id}
                 layout
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 35, rotateX: 6 }}
+                animate={{ opacity: 1, y: 0, rotateX: 0 }}
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{
-                  duration: 0.55,
+                  duration: 0.6,
                   delay: idx * 0.12,
                   ease: [0.16, 1, 0.3, 1],
                 }}

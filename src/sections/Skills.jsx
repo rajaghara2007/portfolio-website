@@ -129,31 +129,49 @@ export default function Skills() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {category.skills.map((skill, sIdx) => {
                       const IconComponent = iconMap[skill.icon] || Code;
+                      const levelWidth =
+                        skill.level === 'Expert' ? '92%' :
+                        skill.level === 'Experienced' ? '86%' :
+                        skill.level === 'Proficient' ? '82%' : '72%';
+
                       return (
                         <motion.div
                           key={sIdx}
                           whileHover={{
-                            scale: 1.04,
-                            y: -3,
+                            scale: 1.03,
+                            y: -2,
                             borderColor: 'rgba(0, 245, 255, 0.55)',
                             backgroundColor: 'rgba(14, 20, 52, 0.9)',
                             boxShadow: '0 8px 20px -4px rgba(0, 245, 255, 0.25)',
                           }}
                           transition={{ type: 'spring', stiffness: 450, damping: 15 }}
-                          className="flex items-center justify-between p-3.5 rounded-2xl bg-[#090d24]/75 border border-purple-500/15 transition-all group cursor-default backdrop-blur-md"
+                          className="p-3.5 rounded-2xl bg-[#090d24]/75 border border-purple-500/15 transition-all group cursor-default backdrop-blur-md relative overflow-hidden"
                         >
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:text-cyan-300 group-hover:scale-110 transition-all shadow-sm">
-                              <IconComponent className="w-4 h-4" />
-                            </div>
-                            <div>
-                              <div className="text-sm font-semibold text-slate-200 group-hover:text-white transition-colors">
-                                {skill.name}
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-3">
+                              <div className="w-8 h-8 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:text-cyan-300 group-hover:scale-110 transition-all shadow-sm">
+                                <IconComponent className="w-4 h-4" />
                               </div>
-                              <div className="text-[10px] text-slate-400 font-mono">
-                                {skill.level}
+                              <div>
+                                <div className="text-sm font-semibold text-slate-200 group-hover:text-white transition-colors">
+                                  {skill.name}
+                                </div>
+                                <div className="text-[10px] text-slate-400 font-mono">
+                                  {skill.level}
+                                </div>
                               </div>
                             </div>
+                          </div>
+
+                          {/* Animated Cyber Skill Meter on Scroll */}
+                          <div className="w-full h-1 bg-[#12183a] rounded-full overflow-hidden mt-1">
+                            <motion.div
+                              initial={{ width: 0 }}
+                              whileInView={{ width: levelWidth }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 0.9, delay: 0.2 + sIdx * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                              className="h-full bg-gradient-to-r from-purple-500 via-cyan-400 to-emerald-400 rounded-full"
+                            />
                           </div>
                         </motion.div>
                       );
