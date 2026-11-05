@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" fill="none" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- Deep Space Background Gradient -->
+    <radialGradient id="spaceGrad" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#0a0f28" />
+      <stop offset="60%" stop-color="#050714" />
+      <stop offset="100%" stop-color="#020308" />
+    </radialGradient>
+
+    <!-- Nebula Glow Gradients -->
+    <radialGradient id="nebulaPurple" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#9333ea" stop-opacity="0.35" />
+      <stop offset="50%" stop-color="#6b21a8" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="nebulaCyan" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00f5ff" stop-opacity="0.25" />
+      <stop offset="50%" stop-color="#0284c7" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="nebulaIndigo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4f46e5" stop-opacity="0.28" />
+      <stop offset="70%" stop-color="#312e81" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Grid Pattern -->
+    <pattern id="cyberGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(168, 85, 247, 0.08)" stroke-width="1" />
+      <circle cx="0" cy="0" r="1.5" fill="rgba(0, 245, 255, 0.3)" />
+    </pattern>
+
+    <!-- Glowing Node Filter -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Deep Cosmos Canvas -->
+  <rect width="1440" height="900" fill="url(#spaceGrad)" />
+
+  <!-- Layered Nebula Glow Clusters -->
+  <circle cx="250" cy="350" r="420" fill="url(#nebulaPurple)" />
+  <circle cx="1200" cy="450" r="450" fill="url(#nebulaCyan)" />
+  <circle cx="750" cy="200" r="380" fill="url(#nebulaIndigo)" />
+  <circle cx="850" cy="700" r="350" fill="url(#nebulaPurple)" />
+
+  <!-- Cyber Matrix Grid with radial mask -->
+  <rect width="1440" height="900" fill="url(#cyberGrid)" opacity="0.85" />
+
+  <!-- Orbital Rings / Cosmic Light Arcs -->
+  <g opacity="0.35">
+    <ellipse cx="720" cy="450" rx="650" ry="240" stroke="url(#nebulaPurple)" stroke-width="1.5" transform="rotate(-15 720 450)" fill="none" />
+    <ellipse cx="720" cy="450" rx="680" ry="250" stroke="url(#nebulaCyan)" stroke-width="1" stroke-dasharray="8 12" transform="rotate(-18 720 450)" fill="none" />
+    <ellipse cx="720" cy="450" rx="420" ry="160" stroke="rgba(168, 85, 247, 0.25)" stroke-width="1.2" transform="rotate(22 720 450)" fill="none" />
+  </g>
+
+  <!-- Constellation Nodes & Connecting Cyber Lines -->
+  <g stroke="rgba(0, 245, 255, 0.2)" stroke-width="1" fill="none">
+    <polyline points="150,180 280,240 360,190 480,260 550,220" />
+    <polyline points="920,160 1020,210 1140,170 1250,230 1340,190" />
+    <polyline points="200,680 320,720 420,670 510,750" />
+    <polyline points="960,650 1080,720 1200,660 1310,730" />
+  </g>
+
+  <!-- Glowing Constellation Node Stars -->
+  <g filter="url(#glow)">
+    <circle cx="150" cy="180" r="3" fill="#00f5ff" />
+    <circle cx="280" cy="240" r="3.5" fill="#c084fc" />
+    <circle cx="360" cy="190" r="2.5" fill="#ffffff" />
+    <circle cx="480" cy="260" r="4" fill="#00f5ff" />
+    <circle cx="550" cy="220" r="3" fill="#a855f7" />
+
+    <circle cx="920" cy="160" r="3" fill="#38bdf8" />
+    <circle cx="1020" cy="210" r="3.5" fill="#a855f7" />
+    <circle cx="1140" cy="170" r="4" fill="#00f5ff" />
+    <circle cx="1250" cy="230" r="2.5" fill="#ffffff" />
+    <circle cx="1340" cy="190" r="3.5" fill="#c084fc" />
+
+    <circle cx="200" cy="680" r="3" fill="#00f5ff" />
+    <circle cx="320" cy="720" r="3.5" fill="#a855f7" />
+    <circle cx="420" cy="670" r="2.5" fill="#ffffff" />
+    <circle cx="510" cy="750" r="3.5" fill="#38bdf8" />
+
+    <circle cx="960" cy="650" r="3" fill="#c084fc" />
+    <circle cx="1080" cy="720" r="4" fill="#00f5ff" />
+    <circle cx="1200" cy="660" r="2.5" fill="#ffffff" />
+    <circle cx="1310" cy="730" r="3.5" fill="#a855f7" />
+  </g>
+
+  <!-- Twinkling Star Dust Field -->
+  <g fill="#ffffff" opacity="0.6">
+    <circle cx="80" cy="120" r="1.5" />
+    <circle cx="190" cy="80" r="1" />
+    <circle cx="240" cy="460" r="1.2" />
+    <circle cx="310" cy="380" r="1" />
+    <circle cx="420" cy="120" r="1.8" />
+    <circle cx="590" cy="310" r="1.2" />
+    <circle cx="670" cy="150" r="1.5" />
+    <circle cx="780" cy="340" r="1" />
+    <circle cx="850" cy="110" r="1.5" />
+    <circle cx="990" cy="390" r="1.2" />
+    <circle cx="1070" cy="90" r="1" />
+    <circle cx="1180" cy="340" r="1.5" />
+    <circle cx="1290" cy="110" r="1.8" />
+    <circle cx="1380" cy="270" r="1" />
+    <circle cx="100" cy="550" r="1.2" />
+    <circle cx="210" cy="820" r="1.5" />
+    <circle cx="380" cy="580" r="1" />
+    <circle cx="490" cy="840" r="1.6" />
+    <circle cx="630" cy="620" r="1.2" />
+    <circle cx="740" cy="790" r="1.5" />
+    <circle cx="880" cy="560" r="1" />
+    <circle cx="1040" cy="830" r="1.8" />
+    <circle cx="1150" cy="590" r="1.2" />
+    <circle cx="1270" cy="810" r="1.5" />
+    <circle cx="1390" cy="620" r="1" />
+  </g>
+</svg>

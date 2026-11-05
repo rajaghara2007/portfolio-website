@@ -1,31 +1,74 @@
 import React from 'react';
-import { GraduationCap, Compass, Target, Sparkles, Code2 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { GraduationCap, Compass, Target, Sparkles, Code2, Globe2, ShieldCheck, Zap } from 'lucide-react';
 import SectionHeading from '../components/SectionHeading';
 import { aboutData } from '../data/about';
 
 export default function About() {
   return (
-    <section id="about" className="relative py-24 px-4 sm:px-6 lg:px-8 border-t border-purple-500/15 overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px] pointer-events-none -z-10" />
+    <section id="about" className="relative py-28 px-4 sm:px-6 lg:px-8 border-t border-purple-500/15 overflow-hidden">
+      
+      {/* 1. Cosmic Background Vector Graphic Layer */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center pointer-events-none -z-20 opacity-60 mix-blend-screen"
+        style={{ backgroundImage: "url('/images/cosmic-bg.svg')" }}
+      />
 
-      <div className="max-w-6xl mx-auto">
-        <SectionHeading
-          badge="ABOUT ME"
-          title="Origin &amp; Trajectory"
-          subtitle="My software development journey, academic background, and engineering philosophies."
-        />
+      {/* 2. Cyber Matrix Grid Overlay */}
+      <div className="absolute inset-0 cosmic-cyber-grid opacity-70 pointer-events-none -z-10" />
+
+      {/* 3. Deep Space Stars */}
+      <div className="absolute inset-0 cosmic-stars opacity-40 pointer-events-none -z-10" />
+
+      {/* 4. Layered Glowing Nebula Clouds */}
+      <div className="absolute -top-12 left-1/4 w-[36rem] h-[36rem] bg-purple-600/18 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute top-1/2 -right-20 w-[38rem] h-[38rem] bg-cyan-600/14 rounded-full blur-[150px] pointer-events-none -z-10" />
+      <div className="absolute -bottom-10 left-10 w-[34rem] h-[34rem] bg-indigo-600/15 rounded-full blur-[130px] pointer-events-none -z-10" />
+
+      {/* 5. Cosmic Orbital Geometry in Background */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[52rem] h-[26rem] rounded-[100%] border border-purple-500/20 rotate-[-12deg] pointer-events-none -z-10 shadow-[0_0_35px_rgba(168,85,247,0.15)]" />
+      <div className="absolute top-[36%] left-[48%] -translate-x-1/2 w-[56rem] h-[28rem] rounded-[100%] border border-cyan-400/15 rotate-[-15deg] pointer-events-none -z-10 shadow-[0_0_30px_rgba(0,245,255,0.1)]" />
+
+      <div className="max-w-6xl mx-auto relative z-10">
+        
+        {/* Animated Section Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <SectionHeading
+            badge="ABOUT ME"
+            title="Origin &amp; Trajectory"
+            subtitle="My software development journey, academic background, and engineering philosophies."
+          />
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Main Story */}
-          <div className="lg:col-span-7 cosmic-card rounded-3xl p-6 sm:p-8 space-y-6">
+          {/* Main Story Card (Left Column) */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 cosmic-card rounded-3xl p-6 sm:p-8 space-y-6 relative group overflow-hidden border border-purple-500/25 hover:border-purple-500/50"
+          >
+            {/* Subtle card top glowing light sheen */}
+            <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-80 h-24 bg-gradient-to-b from-purple-500/25 to-transparent blur-2xl pointer-events-none" />
+
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-cyan-400 font-mono text-xs font-semibold">
-                <Compass className="w-4 h-4" />
+              <motion.div 
+                className="flex items-center gap-2 text-cyan-400 font-mono text-xs font-semibold tracking-wider"
+                whileHover={{ x: 3 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+              >
+                <Compass className="w-4 h-4 text-cyan-400 animate-spin-slow" />
                 <span>ENGINEERING JOURNEY</span>
-              </div>
-              <h3 className="text-xl sm:text-2xl font-display font-bold text-white">
+              </motion.div>
+
+              <h3 className="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-cyan-300 transition-colors duration-300">
                 Designing Modern Experiences with Purpose &amp; Code
               </h3>
             </div>
@@ -38,34 +81,50 @@ export default function About() {
               {aboutData.developerJourney}
             </p>
 
-            {/* Metrics */}
+            {/* 4 Interactive Metrics Boxes with Hover Physics */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-purple-500/15">
               {aboutData.stats.map((stat, i) => (
-                <div key={i} className="p-3.5 rounded-2xl bg-[#090d24]/60 border border-purple-500/20 text-center hover:border-purple-500/40 transition-colors">
-                  <div className="text-lg sm:text-xl font-display font-bold text-purple-400">
+                <motion.div
+                  key={i}
+                  whileHover={{
+                    y: -5,
+                    scale: 1.05,
+                    borderColor: 'rgba(168, 85, 247, 0.6)',
+                    boxShadow: '0 8px 25px -4px rgba(168, 85, 247, 0.35)',
+                  }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+                  className="p-3.5 rounded-2xl bg-[#090d24]/75 border border-purple-500/20 text-center transition-all cursor-default backdrop-blur-md"
+                >
+                  <div className="text-lg sm:text-xl font-display font-bold text-purple-400 group-hover:text-cyan-300 transition-colors">
                     {stat.value}
                   </div>
-                  <div className="text-[11px] font-mono text-slate-400 mt-0.5">
+                  <div className="text-[11px] font-mono text-slate-300 mt-1 leading-tight">
                     {stat.label}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: Education & Interests */}
           <div className="lg:col-span-5 space-y-6">
             
             {/* Education Card */}
-            <div className="cosmic-card rounded-3xl p-6 space-y-4">
-              <div className="flex items-center gap-2 text-purple-400 font-mono text-xs font-semibold">
-                <GraduationCap className="w-4 h-4" />
+            <motion.div
+              initial={{ opacity: 0, x: 35 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="cosmic-card rounded-3xl p-6 space-y-4 border border-purple-500/25 hover:border-purple-500/50 transition-all"
+            >
+              <div className="flex items-center gap-2 text-purple-400 font-mono text-xs font-semibold tracking-wider">
+                <GraduationCap className="w-4 h-4 text-purple-400" />
                 <span>EDUCATION</span>
               </div>
 
               {aboutData.education.map((edu, idx) => (
                 <div key={idx} className="space-y-2">
-                  <h4 className="text-base font-display font-bold text-white">
+                  <h4 className="text-base font-display font-bold text-white hover:text-cyan-300 transition-colors">
                     {edu.degree}
                   </h4>
                   <div className="text-xs font-mono text-cyan-400 font-medium">
@@ -80,38 +139,55 @@ export default function About() {
                     </p>
                   )}
                   {edu.highlights && (
-                    <ul className="mt-2 space-y-1">
+                    <ul className="mt-2.5 space-y-1.5">
                       {edu.highlights.map((h, i) => (
-                        <li key={i} className="text-xs text-slate-400 flex items-start gap-1.5 font-light">
-                          <span className="text-purple-400">•</span>
+                        <motion.li
+                          key={i}
+                          whileHover={{ x: 4 }}
+                          className="text-xs text-slate-300 flex items-start gap-2 font-light transition-transform"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-1.5 shrink-0 shadow-[0_0_6px_#00f5ff]" />
                           <span>{h}</span>
-                        </li>
+                        </motion.li>
                       ))}
                     </ul>
                   )}
                 </div>
               ))}
-            </div>
+            </motion.div>
 
-            {/* Core Interests */}
-            <div className="cosmic-card rounded-3xl p-6 space-y-3">
-              <div className="flex items-center gap-2 text-cyan-400 font-mono text-xs font-semibold">
-                <Target className="w-4 h-4" />
+            {/* Core Interests Card with Interactive Pill Animation */}
+            <motion.div
+              initial={{ opacity: 0, x: 35 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="cosmic-card rounded-3xl p-6 space-y-3.5 border border-purple-500/25 hover:border-purple-500/50 transition-all"
+            >
+              <div className="flex items-center gap-2 text-cyan-400 font-mono text-xs font-semibold tracking-wider">
+                <Target className="w-4 h-4 text-cyan-400" />
                 <span>CORE INTERESTS</span>
               </div>
 
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 pt-1">
                 {aboutData.interests.map((interest, idx) => (
-                  <span
+                  <motion.span
                     key={idx}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0a0f28] border border-purple-500/25 text-xs font-medium text-slate-300 hover:border-purple-400 transition-colors"
+                    whileHover={{
+                      scale: 1.07,
+                      y: -3,
+                      borderColor: 'rgba(0, 245, 255, 0.7)',
+                      boxShadow: '0 0 15px rgba(0, 245, 255, 0.35)',
+                    }}
+                    transition={{ type: 'spring', stiffness: 450, damping: 15 }}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#090d24]/85 border border-purple-500/25 text-xs font-medium text-slate-300 hover:text-white transition-colors cursor-default backdrop-blur-md"
                   >
-                    <Sparkles className="w-3 h-3 text-cyan-400" />
+                    <Sparkles className="w-3 h-3 text-cyan-400 shrink-0" />
                     <span>{interest}</span>
-                  </span>
+                  </motion.span>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
           </div>
         </div>
