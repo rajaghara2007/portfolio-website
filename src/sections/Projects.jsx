@@ -22,9 +22,26 @@ export default function Projects() {
   return (
     <section id="projects" className="relative py-28 px-4 sm:px-6 lg:px-8 border-t border-purple-500/15 overflow-hidden">
       
-      {/* Background Nebulae */}
-      <div className="absolute top-1/2 -left-28 w-96 h-96 bg-purple-600/15 rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute top-1/4 -right-28 w-96 h-96 bg-cyan-600/12 rounded-full blur-[140px] pointer-events-none -z-10" />
+      {/* 1. Cosmic Background Vector Graphic Layer */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center pointer-events-none -z-20 opacity-60 mix-blend-screen"
+        style={{ backgroundImage: "url('/images/cosmic-bg.svg')" }}
+      />
+
+      {/* 2. Cyber Matrix Grid Overlay */}
+      <div className="absolute inset-0 cosmic-cyber-grid opacity-70 pointer-events-none -z-10" />
+
+      {/* 3. Deep Space Stars */}
+      <div className="absolute inset-0 cosmic-stars opacity-40 pointer-events-none -z-10" />
+
+      {/* 4. Layered Glowing Nebula Clouds */}
+      <div className="absolute -top-10 right-1/4 w-[38rem] h-[38rem] bg-purple-600/18 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute top-1/2 -left-20 w-[40rem] h-[40rem] bg-cyan-600/15 rounded-full blur-[150px] pointer-events-none -z-10" />
+      <div className="absolute -bottom-10 right-10 w-[36rem] h-[36rem] bg-indigo-600/15 rounded-full blur-[130px] pointer-events-none -z-10" />
+
+      {/* 5. Cosmic Orbital Geometry in Background */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[54rem] h-[26rem] rounded-[100%] border border-purple-500/20 rotate-[-16deg] pointer-events-none -z-10 shadow-[0_0_35px_rgba(168,85,247,0.15)]" />
+      <div className="absolute top-[37%] left-[48%] -translate-x-1/2 w-[58rem] h-[28rem] rounded-[100%] border border-cyan-400/15 rotate-[-19deg] pointer-events-none -z-10 shadow-[0_0_30px_rgba(0,245,255,0.1)]" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         
@@ -33,7 +50,7 @@ export default function Projects() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <SectionHeading
             badge="PORTFOLIO"
@@ -57,7 +74,7 @@ export default function Projects() {
               className={`px-4 py-2 rounded-full text-xs font-medium transition-all cursor-pointer backdrop-blur-md ${
                 activeCategory === cat
                   ? 'btn-neon-pill text-white font-semibold shadow-lg'
-                  : 'bg-[#090d24]/70 hover:bg-[#111738] text-slate-400 hover:text-white border border-purple-500/20'
+                  : 'bg-[#090d24]/75 hover:bg-[#111738] text-slate-400 hover:text-white border border-purple-500/20'
               }`}
             >
               {cat}
@@ -72,13 +89,16 @@ export default function Projects() {
               <motion.div
                 key={project.id}
                 layout
-                initial={{ opacity: 0, y: 30, scale: 0.96 }}
+                initial={{ opacity: 0, y: 35, scale: 0.96 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                className="cosmic-card rounded-3xl overflow-hidden flex flex-col justify-between group border border-purple-500/25 hover:border-purple-500/50"
+                className="cosmic-card rounded-3xl overflow-hidden flex flex-col justify-between group border border-purple-500/25 hover:border-purple-500/50 relative"
               >
+                {/* Subtle card top glowing light sheen */}
+                <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-80 h-24 bg-gradient-to-b from-purple-500/20 to-transparent blur-2xl pointer-events-none" />
+
                 <div>
                   {/* Banner Image Preview Container */}
                   <div className="relative h-48 bg-[#0a0e24] overflow-hidden border-b border-purple-500/20">
@@ -153,7 +173,7 @@ export default function Projects() {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#090d24] hover:bg-[#111738] border border-purple-500/30 text-slate-300 hover:text-white text-xs font-medium transition-all"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#090d24] hover:bg-[#111738] border border-purple-500/30 text-slate-300 hover:text-white text-xs font-medium transition-all"
                       >
                         <Github className="w-3.5 h-3.5 text-purple-400" />
                         <span>Code</span>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import {
   Mail,
@@ -100,25 +101,60 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-24 px-4 sm:px-6 lg:px-8 border-t border-purple-500/15 overflow-hidden">
+    <section id="contact" className="relative py-28 px-4 sm:px-6 lg:px-8 border-t border-purple-500/15 overflow-hidden">
       
-      {/* Background Nebulae */}
-      <div className="absolute top-1/2 -left-20 w-96 h-96 bg-purple-600/15 rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-cyan-600/12 rounded-full blur-[140px] pointer-events-none -z-10" />
+      {/* 1. Cosmic Background Vector Graphic Layer */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center pointer-events-none -z-20 opacity-60 mix-blend-screen"
+        style={{ backgroundImage: "url('/images/cosmic-bg.svg')" }}
+      />
 
-      <div className="max-w-6xl mx-auto">
-        <SectionHeading
-          badge="GET IN TOUCH"
-          title="Contact &amp; Connect"
-          subtitle="Interested in collaborating, hiring, or discussing software engineering opportunities? Reach out anytime."
-        />
+      {/* 2. Cyber Matrix Grid Overlay */}
+      <div className="absolute inset-0 cosmic-cyber-grid opacity-70 pointer-events-none -z-10" />
+
+      {/* 3. Deep Space Stars */}
+      <div className="absolute inset-0 cosmic-stars opacity-40 pointer-events-none -z-10" />
+
+      {/* 4. Layered Glowing Nebula Clouds */}
+      <div className="absolute -top-12 left-1/3 w-[38rem] h-[38rem] bg-purple-600/18 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute top-1/2 -right-20 w-[40rem] h-[40rem] bg-cyan-600/15 rounded-full blur-[150px] pointer-events-none -z-10" />
+      <div className="absolute -bottom-10 left-10 w-[36rem] h-[36rem] bg-indigo-600/15 rounded-full blur-[130px] pointer-events-none -z-10" />
+
+      {/* 5. Cosmic Orbital Geometry in Background */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[52rem] h-[26rem] rounded-[100%] border border-purple-500/20 rotate-[-12deg] pointer-events-none -z-10 shadow-[0_0_35px_rgba(168,85,247,0.15)]" />
+      <div className="absolute top-[37%] left-[48%] -translate-x-1/2 w-[56rem] h-[28rem] rounded-[100%] border border-cyan-400/15 rotate-[-15deg] pointer-events-none -z-10 shadow-[0_0_30px_rgba(0,245,255,0.1)]" />
+
+      <div className="max-w-6xl mx-auto relative z-10">
+        
+        {/* Animated Section Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <SectionHeading
+            badge="GET IN TOUCH"
+            title="Contact &amp; Connect"
+            subtitle="Interested in collaborating, hiring, or discussing software engineering opportunities? Reach out anytime."
+          />
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
           {/* Left Column: Direct Info Cards */}
-          <div className="lg:col-span-5 space-y-4">
-            <div className="cosmic-card rounded-3xl p-6 sm:p-8 space-y-5 border border-purple-500/25">
-              <h3 className="text-xl font-display font-bold text-white">
+          <motion.div
+            initial={{ opacity: 0, x: -35 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-70px" }}
+            transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 space-y-4"
+          >
+            <div className="cosmic-card rounded-3xl p-6 sm:p-8 space-y-5 border border-purple-500/25 relative overflow-hidden group">
+              {/* Subtle card top glowing light sheen */}
+              <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-80 h-24 bg-gradient-to-b from-purple-500/20 to-transparent blur-2xl pointer-events-none" />
+
+              <h3 className="text-xl font-display font-bold text-white group-hover:text-cyan-300 transition-colors">
                 Let's talk about building something extraordinary.
               </h3>
               <p className="text-slate-300 text-sm leading-relaxed font-light">
@@ -126,9 +162,10 @@ export default function Contact() {
               </p>
 
               {/* Email Card */}
-              <a
+              <motion.a
+                whileHover={{ scale: 1.02, x: 4 }}
                 href={`mailto:${aboutData.email}`}
-                className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#090d24]/70 border border-purple-500/20 hover:border-purple-400 hover:bg-[#0e1436] transition-all group"
+                className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#090d24]/75 border border-purple-500/20 hover:border-purple-400 hover:bg-[#0e1436] transition-all group backdrop-blur-md"
               >
                 <div className="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.3)]">
                   <Mail className="w-5 h-5" />
@@ -139,10 +176,10 @@ export default function Contact() {
                     {aboutData.email}
                   </div>
                 </div>
-              </a>
+              </motion.a>
 
               {/* Location Card */}
-              <div className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#090d24]/70 border border-purple-500/20">
+              <div className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#090d24]/75 border border-purple-500/20 backdrop-blur-md">
                 <div className="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-300 shadow-[0_0_12px_rgba(0,245,255,0.25)]">
                   <MapPin className="w-5 h-5" />
                 </div>
@@ -162,11 +199,12 @@ export default function Contact() {
               </h4>
 
               <div className="space-y-2">
-                <a
+                <motion.a
+                  whileHover={{ scale: 1.02, x: 4 }}
                   href={socialLinks.github.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3.5 rounded-2xl bg-[#090d24]/60 hover:bg-[#0e1436] border border-purple-500/15 hover:border-purple-400 text-slate-300 hover:text-white transition-all"
+                  className="flex items-center justify-between p-3.5 rounded-2xl bg-[#090d24]/65 hover:bg-[#0e1436] border border-purple-500/15 hover:border-purple-400 text-slate-300 hover:text-white transition-all backdrop-blur-md"
                 >
                   <div className="flex items-center gap-3">
                     <Github className="w-4 h-4 text-purple-400" />
@@ -176,14 +214,15 @@ export default function Contact() {
                     {socialLinks.github.handle}
                     <ExternalLink className="w-3 h-3 text-cyan-400" />
                   </span>
-                </a>
+                </motion.a>
 
                 {socialLinks.linkedin.url && (
-                  <a
+                  <motion.a
+                    whileHover={{ scale: 1.02, x: 4 }}
                     href={socialLinks.linkedin.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between p-3.5 rounded-2xl bg-[#090d24]/60 hover:bg-[#0e1436] border border-purple-500/15 hover:border-purple-400 text-slate-300 hover:text-white transition-all"
+                    className="flex items-center justify-between p-3.5 rounded-2xl bg-[#090d24]/65 hover:bg-[#0e1436] border border-purple-500/15 hover:border-purple-400 text-slate-300 hover:text-white transition-all backdrop-blur-md"
                   >
                     <div className="flex items-center gap-3">
                       <Linkedin className="w-4 h-4 text-cyan-400" />
@@ -193,15 +232,16 @@ export default function Contact() {
                       {socialLinks.linkedin.handle}
                       <ExternalLink className="w-3 h-3 text-cyan-400" />
                     </span>
-                  </a>
+                  </motion.a>
                 )}
 
                 {socialLinks.leetcode.url && (
-                  <a
+                  <motion.a
+                    whileHover={{ scale: 1.02, x: 4 }}
                     href={socialLinks.leetcode.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between p-3.5 rounded-2xl bg-[#090d24]/60 hover:bg-[#0e1436] border border-purple-500/15 hover:border-purple-400 text-slate-300 hover:text-white transition-all"
+                    className="flex items-center justify-between p-3.5 rounded-2xl bg-[#090d24]/65 hover:bg-[#0e1436] border border-purple-500/15 hover:border-purple-400 text-slate-300 hover:text-white transition-all backdrop-blur-md"
                   >
                     <div className="flex items-center gap-3">
                       <Code2 className="w-4 h-4 text-amber-400" />
@@ -211,14 +251,23 @@ export default function Contact() {
                       {socialLinks.leetcode.handle}
                       <ExternalLink className="w-3 h-3 text-cyan-400" />
                     </span>
-                  </a>
+                  </motion.a>
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: Contact Form */}
-          <div className="lg:col-span-7 cosmic-card rounded-3xl p-6 sm:p-8 space-y-6 border border-purple-500/25">
+          <motion.div
+            initial={{ opacity: 0, x: 35 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-70px" }}
+            transition={{ duration: 0.75, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 cosmic-card rounded-3xl p-6 sm:p-8 space-y-6 border border-purple-500/25 relative overflow-hidden"
+          >
+            {/* Subtle card top glowing light sheen */}
+            <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-24 bg-gradient-to-b from-purple-500/20 to-transparent blur-2xl pointer-events-none" />
+
             <div>
               <h3 className="text-xl sm:text-2xl font-display font-bold text-white mb-1">
                 Send a Message
@@ -380,7 +429,7 @@ export default function Contact() {
                 )}
               </button>
             </form>
-          </div>
+          </motion.div>
 
         </div>
       </div>
