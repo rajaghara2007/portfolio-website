@@ -10,7 +10,7 @@ const navLinks = [
   { href: '#contact', label: 'Contact' },
 ];
 
-export default function Navbar() {
+export default function Navbar({ onNavigate }) {
   const [activeSection, setActiveSection] = useState('home');
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -35,6 +35,18 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleLinkClick = (e, href, label) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+
+    if (onNavigate) {
+      onNavigate(href, label);
+    } else {
+      const el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -46,14 +58,18 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           
-          {/* Logo (Glowing Monogram like "JD" in image -> "RA") */}
-          <a href="#home" className="flex items-center gap-2 group">
+          {/* Logo (Glowing Monogram: Clicking also triggers animated warp to Home) */}
+          <a
+            href="#home"
+            onClick={(e) => handleLinkClick(e, '#home', 'HOME')}
+            className="flex items-center gap-2 group cursor-pointer"
+          >
             <span className="font-display font-extrabold italic text-2xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-indigo-300 to-cyan-300 drop-shadow-[0_0_15px_rgba(168,85,247,0.7)] group-hover:scale-105 transition-transform">
               RA
             </span>
           </a>
 
-          {/* Center: Floating Navigation Pill (Exact match to reference image) */}
+          {/* Center: Floating Navigation Pill */}
           <nav className="hidden md:flex items-center gap-1 px-4 py-1.5 rounded-full bg-[#0a0d20]/80 border border-purple-500/20 backdrop-blur-lg shadow-lg">
             {navLinks.map((link) => {
               const id = link.href.replace('#', '');
@@ -63,7 +79,8 @@ export default function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className={`relative px-4 py-1.5 text-xs font-medium transition-all ${
+                  onClick={(e) => handleLinkClick(e, link.href, link.label.toUpperCase())}
+                  className={`relative px-4 py-1.5 text-xs font-medium transition-all cursor-pointer ${
                     isActive
                       ? 'text-white font-semibold'
                       : 'text-slate-400 hover:text-slate-200'
@@ -83,7 +100,8 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#111636]/90 hover:bg-[#1a214d] text-white font-semibold text-xs border border-purple-500/50 hover:border-purple-400 shadow-[0_0_20px_rgba(139,92,246,0.45)] hover:shadow-[0_0_25px_rgba(139,92,246,0.7)] transition-all hover:scale-105 active:scale-95"
+              onClick={(e) => handleLinkClick(e, '#contact', 'CONTACT')}
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#111636]/90 hover:bg-[#1a214d] text-white font-semibold text-xs border border-purple-500/50 hover:border-purple-400 shadow-[0_0_20px_rgba(139,92,246,0.45)] hover:shadow-[0_0_25px_rgba(139,92,246,0.7)] transition-all hover:scale-105 active:scale-95 cursor-pointer"
             >
               <span>Let's Talk</span>
               <ArrowRight className="w-3.5 h-3.5 text-purple-300" />
@@ -107,8 +125,8 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-purple-900/20 transition-colors"
+                onClick={(e) => handleLinkClick(e, link.href, link.label.toUpperCase())}
+                className="block px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-purple-900/20 transition-colors cursor-pointer"
               >
                 {link.label}
               </a>
@@ -116,8 +134,8 @@ export default function Navbar() {
             <div className="pt-3 border-t border-purple-500/20">
               <a
                 href="#contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold text-xs shadow-lg"
+                onClick={(e) => handleLinkClick(e, '#contact', 'CONTACT')}
+                className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold text-xs shadow-lg cursor-pointer"
               >
                 <span>Let's Talk</span>
                 <ArrowRight className="w-3.5 h-3.5" />

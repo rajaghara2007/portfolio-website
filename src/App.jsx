@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './sections/Hero';
 import About from './sections/About';
@@ -9,11 +9,52 @@ import Hackathons from './sections/Hackathons';
 import ResumeViewer from './sections/ResumeViewer';
 import Contact from './sections/Contact';
 import Footer from './components/Footer';
+import Cosmic3DScene from './components/Cosmic3DScene';
+import LogoPageTransition from './components/LogoPageTransition';
+import { useLenis } from './hooks/useLenis';
 
 export default function App() {
+  // Activate Lenis smooth scrolling with GSAP integration
+  useLenis();
+
+  // Navigation Logo Transition state
+  const [transitionState, setTransitionState] = useState({
+    isOpen: false,
+    targetId: null,
+    targetLabel: '',
+  });
+
+  const handleNavigate = (targetId, targetLabel) => {
+    setTransitionState({
+      isOpen: true,
+      targetId,
+      targetLabel: targetLabel || targetId.replace('#', '').toUpperCase(),
+    });
+  };
+
+  const handleTransitionComplete = () => {
+    if (transitionState.targetId) {
+      const el = document.querySelector(transitionState.targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    setTransitionState({ isOpen: false, targetId: null, targetLabel: '' });
+  };
+
   return (
     <div className="min-h-screen bg-[#04050d] text-slate-100 selection:bg-purple-600/40 selection:text-purple-200 relative overflow-x-hidden">
       
+      {/* Interactive 3D Canvas Reacting Dynamically to Scroll Across All Pages */}
+      <Cosmic3DScene />
+
+      {/* Cinematic Logo Transition Overlay Triggered on Navbar Clicks */}
+      <LogoPageTransition
+        isOpen={transitionState.isOpen}
+        targetLabel={transitionState.targetLabel}
+        onTransitionComplete={handleTransitionComplete}
+      />
+
       {/* 1. Deep Cosmic Background Vector Graphic across all sections */}
       <div 
         className="fixed inset-0 pointer-events-none -z-50 bg-cover bg-center opacity-45 mix-blend-screen"
@@ -33,12 +74,12 @@ export default function App() {
         <div className="absolute top-[75%] left-1/4 w-[38rem] h-[38rem] bg-indigo-700/18 rounded-full blur-[140px]" />
       </div>
 
-      {/* Floating Top Navbar */}
-      <Navbar />
+      {/* Floating Top Navbar with Logo Page Transition Trigger */}
+      <Navbar onNavigate={handleNavigate} />
 
       {/* Main Content Sections */}
       <main className="relative z-10">
-        <Hero />
+        <Hero onNavigate={handleNavigate} />
         <About />
         <Skills />
         <Projects />
