@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+  <defs>
+    <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141a29" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg4)" />
+  <rect x="50" y="40" width="700" height="420" rx="16" fill="#0d1527" fill-opacity="0.8" stroke="#818cf8" stroke-width="2" />
+  <text x="400" y="230" fill="#818cf8" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="32" text-anchor="middle">reverse-engineering</text>
+  <text x="400" y="270" fill="#94a3b8" font-family="monospace" font-size="14" text-anchor="middle">[FORK: morluto/rea]</text>
+  <text x="400" y="310" fill="#818cf8" font-family="sans-serif" font-size="13" text-anchor="middle" letter-spacing="2">BINARY &amp; CODE ANALYSIS SUITE</text>
+</svg>

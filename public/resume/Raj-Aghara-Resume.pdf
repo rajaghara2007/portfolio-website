@@ -1,0 +1,101 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1616 >>
+stream
+BT
+/F1 18 Tf
+50 750 Td
+(RAJ AGHARA) Tj
+/F1 11 Tf
+0 -22 Td
+(Full Stack Developer / Software Developer) Tj
+0 -18 Td
+(GitHub: https://github.com/rajaghara2007 | aegis-lens.vercel.app) Tj
+0 -18 Td
+() Tj
+/F1 13 Tf
+0 -22 Td
+(SUMMARY) Tj
+/F1 10 Tf
+0 -18 Td
+(Passionate software developer and full-stack engineer focused on building robust,) Tj
+0 -18 Td
+(vulnerability intelligence tools and interactive web platforms. Creator of AegisLens.) Tj
+0 -18 Td
+() Tj
+/F1 13 Tf
+0 -22 Td
+(PROJECTS) Tj
+/F1 10 Tf
+0 -18 Td
+(1. AegisLens - Security Assessment & Vulnerability Intelligence Platform) Tj
+0 -18 Td
+(   * Built with React, Vite, TypeScript, Tailwind CSS, Recharts, Node.js, Express.) Tj
+0 -18 Td
+(   * Features CVSS 3.1 calculator, risk heatmap, remediation Kanban, asset inventory,) Tj
+0 -18 Td
+(     audit logs, and AI assistant interface.) Tj
+0 -18 Td
+(   * Live: https://aegis-lens.vercel.app) Tj
+0 -18 Td
+() Tj
+0 -18 Td
+(2. movie-react) Tj
+0 -18 Td
+(   * Frontend React application exploring responsive layouts and component design.) Tj
+0 -18 Td
+() Tj
+0 -18 Td
+(3. task-arena-AI \(Fork\)) Tj
+0 -18 Td
+(   * Exploration into AI task benchmarks and testing workflows.) Tj
+0 -18 Td
+() Tj
+/F1 13 Tf
+0 -22 Td
+(TECHNICAL SKILLS) Tj
+/F1 10 Tf
+0 -18 Td
+(* Languages: TypeScript, JavaScript, HTML5, CSS3) Tj
+0 -18 Td
+(* Frontend: React, Vite, Tailwind CSS, Recharts, Lucide React) Tj
+0 -18 Td
+(* Backend: Node.js, Express) Tj
+0 -18 Td
+(* Tools & Platforms: Git, GitHub, Vercel, Postman) Tj
+0 -18 Td
+() Tj
+/F1 13 Tf
+0 -22 Td
+(EDUCATION) Tj
+/F1 10 Tf
+0 -18 Td
+(* [TODO: Add your degree and institution in src/data/about.js]) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000001909 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1979
+%%EOF
