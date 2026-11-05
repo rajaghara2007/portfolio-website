@@ -6,7 +6,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Initializes Lenis smooth scrolling and binds it directly to GSAP ScrollTrigger.
+ * Initializes Lenis smooth scrolling with GSAP ticker synchronization.
+ * Delivers buttery smooth 60/120fps frictionless momentum scrolling.
  */
 export function useLenis() {
   useEffect(() => {
@@ -15,19 +16,18 @@ export function useLenis() {
     if (prefersReducedMotion) return;
 
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
+      wheelMultiplier: 0.95,
+      touchMultiplier: 1.5,
     });
 
-    // Sync Lenis scroll with GSAP ScrollTrigger
+    // Synchronize Lenis scroll with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
 
-    // Connect Lenis to GSAP's internal ticker
     const updateTicker = (time) => {
       lenis.raf(time * 1000);
     };
@@ -35,10 +35,13 @@ export function useLenis() {
     gsap.ticker.add(updateTicker);
     gsap.ticker.lagSmoothing(0);
 
+    // Expose lenis instance globally for smooth navigation jumps
+    window.__lenis = lenis;
+
     return () => {
       lenis.destroy();
       gsap.ticker.remove(updateTicker);
+      delete window.__lenis;
     };
   }, []);
 }
-

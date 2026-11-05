@@ -8,26 +8,10 @@ export default function Hackathons() {
   return (
     <section id="experience" className="relative py-28 px-4 sm:px-6 lg:px-8 border-t border-purple-500/15 overflow-hidden">
       
-      {/* 1. Cosmic Background Vector Graphic Layer */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center pointer-events-none -z-20 opacity-60 mix-blend-screen"
-        style={{ backgroundImage: "url('/images/cosmic-bg.svg')" }}
-      />
-
-      {/* 2. Cyber Matrix Grid Overlay */}
-      <div className="absolute inset-0 cosmic-cyber-grid opacity-70 pointer-events-none -z-10" />
-
-      {/* 3. Deep Space Stars */}
-      <div className="absolute inset-0 cosmic-stars opacity-40 pointer-events-none -z-10" />
-
-      {/* 4. Layered Glowing Nebula Clouds */}
-      <div className="absolute -top-12 right-1/4 w-[38rem] h-[38rem] bg-purple-600/18 rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute top-1/2 -left-20 w-[40rem] h-[40rem] bg-cyan-600/15 rounded-full blur-[150px] pointer-events-none -z-10" />
-      <div className="absolute -bottom-10 right-1/3 w-[36rem] h-[36rem] bg-indigo-600/15 rounded-full blur-[130px] pointer-events-none -z-10" />
-
-      {/* 5. Cosmic Orbital Geometry in Background */}
-      <div className="absolute top-1/4 left-[10%] w-[52rem] h-[26rem] rounded-[100%] border border-purple-500/20 rotate-[15deg] pointer-events-none -z-10 shadow-[0_0_35px_rgba(168,85,247,0.15)]" />
-      <div className="absolute top-[28%] left-[8%] w-[56rem] h-[28rem] rounded-[100%] border border-cyan-400/15 rotate-[12deg] pointer-events-none -z-10 shadow-[0_0_30px_rgba(0,245,255,0.1)]" />
+      {/* Soft Ambient Nebula Glow in Background */}
+      <div className="absolute -top-12 right-1/4 w-[38rem] h-[38rem] bg-purple-600/12 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute top-1/2 -left-20 w-[40rem] h-[40rem] bg-cyan-600/10 rounded-full blur-[150px] pointer-events-none -z-10" />
+      <div className="absolute -bottom-10 right-1/3 w-[36rem] h-[36rem] bg-indigo-600/10 rounded-full blur-[130px] pointer-events-none -z-10" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         

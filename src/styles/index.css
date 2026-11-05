@@ -26,9 +26,9 @@
   box-shadow: 0 0 10px rgba(139, 92, 246, 0.7);
 }
 
-/* Smooth Scrolling */
+/* Base styles */
 html {
-  scroll-behavior: smooth;
+  /* Scroll behavior managed by Lenis for buttery smooth physics */
 }
 
 body {

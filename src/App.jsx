@@ -11,6 +11,7 @@ import Contact from './sections/Contact';
 import Footer from './components/Footer';
 import Cosmic3DScene from './components/Cosmic3DScene';
 import LogoPageTransition from './components/LogoPageTransition';
+import SpaceAiHUD from './components/SpaceAiHUD';
 import { useLenis } from './hooks/useLenis';
 
 export default function App() {
@@ -36,7 +37,11 @@ export default function App() {
     if (transitionState.targetId) {
       const el = document.querySelector(transitionState.targetId);
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
+        if (window.__lenis) {
+          window.__lenis.scrollTo(el, { offset: -30, duration: 1.0 });
+        } else {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     }
     setTransitionState({ isOpen: false, targetId: null, targetLabel: '' });
@@ -45,39 +50,42 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#04050d] text-slate-100 selection:bg-purple-600/40 selection:text-purple-200 relative overflow-x-hidden">
       
-      {/* Interactive 3D Canvas Reacting Dynamically to Scroll Across All Pages */}
+      {/* 1. Interactive 3D Canvas (Space & AI Synapse System with zero text occlusion) */}
       <Cosmic3DScene />
 
-      {/* Cinematic Logo Transition Overlay Triggered on Navbar Clicks */}
+      {/* 2. Space & AI Telemetry HUD (Fixed in outer margin gutters, zero text overlap) */}
+      <SpaceAiHUD />
+
+      {/* 3. Cinematic Logo Transition Overlay */}
       <LogoPageTransition
         isOpen={transitionState.isOpen}
         targetLabel={transitionState.targetLabel}
         onTransitionComplete={handleTransitionComplete}
       />
 
-      {/* 1. Deep Cosmic Background Vector Graphic across all sections */}
+      {/* 4. Unified Deep Cosmic Background Vector Graphic */}
       <div 
         className="fixed inset-0 pointer-events-none -z-50 bg-cover bg-center opacity-45 mix-blend-screen"
         style={{ backgroundImage: "url('/images/cosmic-bg.svg')" }}
       />
 
-      {/* 2. Cyber Matrix Grid across all sections */}
+      {/* 5. Cyber Matrix Grid */}
       <div className="fixed inset-0 cosmic-cyber-grid opacity-60 pointer-events-none -z-40" />
 
-      {/* 3. Deep Space Stars across all sections */}
+      {/* 6. Deep Space Stars */}
       <div className="fixed inset-0 cosmic-stars opacity-45 pointer-events-none -z-30" />
 
-      {/* 4. Ambient glowing cosmic nebulae */}
+      {/* 7. Ambient Glowing Cosmic Nebulae */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none -z-20 opacity-50">
         <div className="absolute top-[15%] -left-36 w-[34rem] h-[34rem] bg-purple-700/20 rounded-full blur-[140px]" />
         <div className="absolute top-[45%] -right-36 w-[36rem] h-[36rem] bg-cyan-600/18 rounded-full blur-[150px]" />
         <div className="absolute top-[75%] left-1/4 w-[38rem] h-[38rem] bg-indigo-700/18 rounded-full blur-[140px]" />
       </div>
 
-      {/* Floating Top Navbar with Logo Page Transition Trigger */}
+      {/* Floating Top Navbar with Logo Transition Trigger */}
       <Navbar onNavigate={handleNavigate} />
 
-      {/* Main Content Sections */}
+      {/* Main Content Sections (Uncluttered, High-Contrast Glassmorphism) */}
       <main className="relative z-10">
         <Hero onNavigate={handleNavigate} />
         <About />
