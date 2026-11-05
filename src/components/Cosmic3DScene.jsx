@@ -22,7 +22,8 @@ function isWebGLSupported() {
 
 /**
  * Premium Hybrid 3D Cosmic Environment with Section-Specific 3D Objects
- * Driven by GSAP ScrollTrigger & Lenis smooth scroll synchronization.
+ * Perfectly positioned along the vertical scroll journey (y: 0 to -154)
+ * Fully visible in front of background decorations, behind UI cards (z-0).
  */
 export default function Cosmic3DScene() {
   const canvasRef = useRef(null);
@@ -42,12 +43,12 @@ export default function Cosmic3DScene() {
 
     // 1. Scene, Camera, Renderer
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x04050d, 0.016);
+    scene.fog = new THREE.FogExp2(0x04050d, 0.012);
 
     const isMobile = window.innerWidth < 768;
 
     const camera = new THREE.PerspectiveCamera(
-      52,
+      54,
       window.innerWidth / window.innerHeight,
       0.1,
       1000
@@ -63,22 +64,23 @@ export default function Cosmic3DScene() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
 
-    // 2. High-Tech Ambient & Point Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+    // 2. High-Tech Dynamic Lighting that Travels with the Camera
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.95);
     scene.add(ambientLight);
 
-    const purpleLight = new THREE.PointLight(0xa855f7, 3.2, 90);
-    purpleLight.position.set(18, 14, 12);
+    const purpleLight = new THREE.PointLight(0xa855f7, 4.0, 85);
+    purpleLight.position.set(16, 12, 14);
     scene.add(purpleLight);
 
-    const cyanLight = new THREE.PointLight(0x00f5ff, 3.2, 90);
-    cyanLight.position.set(-18, -14, 12);
+    const cyanLight = new THREE.PointLight(0x00f5ff, 4.0, 85);
+    cyanLight.position.set(-16, -12, 14);
     scene.add(cyanLight);
 
     // =========================================================================
-    // 3. PERSISTENT COSMIC ENVIRONMENT: HYPERSPACE STARFIELD
+    // 3. PERSISTENT COSMIC ENVIRONMENT: 2,000 HYPERSPACE STARS
+    // Distributed through the full vertical journey (y = +25 down to -180)
     // =========================================================================
-    const starCount = isMobile ? 700 : 1800;
+    const starCount = isMobile ? 800 : 2000;
     const starGeo = track(new THREE.BufferGeometry());
     const starPositions = new Float32Array(starCount * 3);
     const starColors = new Float32Array(starCount * 3);
@@ -87,14 +89,15 @@ export default function Cosmic3DScene() {
       new THREE.Color(0x00f5ff), // Cyan
       new THREE.Color(0xa855f7), // Neon Purple
       new THREE.Color(0x38bdf8), // Sky Blue
-      new THREE.Color(0xc084fc), // Soft Violet
+      new THREE.Color(0xc084fc), // Violet
       new THREE.Color(0xffffff), // Pure Starlight
+      new THREE.Color(0xe0f2fe), // Ice Blue
     ];
 
     for (let i = 0; i < starCount; i++) {
-      starPositions[i * 3] = (Math.random() - 0.5) * 160;
-      starPositions[i * 3 + 1] = (Math.random() - 0.5) * 160;
-      starPositions[i * 3 + 2] = -Math.random() * 120;
+      starPositions[i * 3] = (Math.random() - 0.5) * 150;
+      starPositions[i * 3 + 1] = 25 - Math.random() * 200; // Covers y = 25 to -175
+      starPositions[i * 3 + 2] = -Math.random() * 70;
 
       const col = colorPalette[Math.floor(Math.random() * colorPalette.length)];
       starColors[i * 3] = col.r;
@@ -107,10 +110,10 @@ export default function Cosmic3DScene() {
 
     const starMaterial = track(
       new THREE.PointsMaterial({
-        size: 0.7,
+        size: 0.8,
         vertexColors: true,
         transparent: true,
-        opacity: 0.75,
+        opacity: 0.8,
         blending: THREE.AdditiveBlending,
       })
     );
@@ -119,12 +122,12 @@ export default function Cosmic3DScene() {
     scene.add(starField);
 
     // Cosmic Shooting Stars / Meteor Trails
-    const meteorCount = isMobile ? 3 : 5;
+    const meteorCount = isMobile ? 3 : 6;
     const meteors = [];
     const meteorGroup = new THREE.Group();
 
     for (let m = 0; m < meteorCount; m++) {
-      const mLength = 4.5 + Math.random() * 4;
+      const mLength = 5.0 + Math.random() * 4.0;
       const mGeo = track(
         new THREE.BufferGeometry().setFromPoints([
           new THREE.Vector3(0, 0, 0),
@@ -143,8 +146,8 @@ export default function Cosmic3DScene() {
       meteors.push({
         mesh: meteorLine,
         active: false,
-        timer: Math.random() * 150,
-        speed: 1.1 + Math.random() * 1.4,
+        timer: Math.random() * 120,
+        speed: 1.2 + Math.random() * 1.5,
         opacity: 0,
       });
       meteorGroup.add(meteorLine);
@@ -152,46 +155,44 @@ export default function Cosmic3DScene() {
     scene.add(meteorGroup);
 
     // =========================================================================
-    // SECTION 1: HERO - GLOWING 3D PLANETARY STRUCTURE & ORBITAL GYROSCOPE
+    // SECTION 1: HERO (y = 0) - GLOWING 3D PLANET & MULTI-RING GYROSCOPE
     // =========================================================================
     const heroGroup = new THREE.Group();
-    // Offset to right on desktop to align behind developer art, centered on mobile
-    heroGroup.position.set(isMobile ? 0 : 8.5, isMobile ? 2 : 1.5, -4);
+    heroGroup.position.set(isMobile ? 0 : 8.5, 1.2, -4);
 
-    // Glowing planetary core
-    const planetOuterGeo = track(new THREE.SphereGeometry(3.0, 24, 24));
+    // Planetary glowing core
+    const planetOuterGeo = track(new THREE.SphereGeometry(3.2, 24, 24));
     const planetOuterMat = track(
       new THREE.MeshStandardMaterial({
         color: 0x38bdf8,
         emissive: 0x0284c7,
-        emissiveIntensity: 0.5,
+        emissiveIntensity: 0.6,
         wireframe: true,
         transparent: true,
-        opacity: 0.45,
+        opacity: 0.55,
       })
     );
     const planetOuter = new THREE.Mesh(planetOuterGeo, planetOuterMat);
 
-    const planetInnerGeo = track(new THREE.SphereGeometry(2.0, 18, 18));
+    const planetInnerGeo = track(new THREE.SphereGeometry(2.1, 18, 18));
     const planetInnerMat = track(
       new THREE.MeshStandardMaterial({
         color: 0x1e1b4b,
         emissive: 0x7c3aed,
-        emissiveIntensity: 0.65,
+        emissiveIntensity: 0.7,
         roughness: 0.2,
       })
     );
     const planetInner = new THREE.Mesh(planetInnerGeo, planetInnerMat);
     heroGroup.add(planetOuter, planetInner);
 
-    // Multiple rotating orbital rings (Gyroscope)
+    // 3 Concentric Gyroscope Rings
     const heroRings = [];
     const ringConfigs = [
-      { r: 4.8, tube: 0.05, color: 0xa855f7, rotX: 0.4, rotY: 0.2 },
-      { r: 3.9, tube: 0.04, color: 0x00f5ff, rotX: -0.5, rotZ: 0.4 },
-      { r: 5.6, tube: 0.03, color: 0xc084fc, rotY: 0.7, rotX: -0.3 },
+      { r: 4.8, tube: 0.06, color: 0xa855f7, rotX: 0.4, rotY: 0.2 },
+      { r: 3.9, tube: 0.05, color: 0x00f5ff, rotX: -0.5, rotZ: 0.4 },
+      { r: 5.6, tube: 0.04, color: 0xc084fc, rotY: 0.7, rotX: -0.3 },
     ];
-
     ringConfigs.forEach((cfg) => {
       const rGeo = track(new THREE.TorusGeometry(cfg.r, cfg.tube, 16, 90));
       const rMat = track(
@@ -199,16 +200,16 @@ export default function Cosmic3DScene() {
           color: cfg.color,
           wireframe: true,
           transparent: true,
-          opacity: 0.55,
+          opacity: 0.65,
         })
       );
       const ring = new THREE.Mesh(rGeo, rMat);
-      ring.rotation.set(cfg.rotX || 0, cfg.rotY || 0, cfg.rotZ || 0);
+      ring.rotation.set(cfg.rotX, cfg.rotY, cfg.rotZ || 0);
       heroRings.push(ring);
       heroGroup.add(ring);
     });
 
-    // Orbiting micro-satellites
+    // Orbiting Satellites
     const satGeo = track(new THREE.BoxGeometry(0.35, 0.35, 0.35));
     const satMat = track(
       new THREE.MeshBasicMaterial({ color: 0x00f5ff, wireframe: true })
@@ -222,32 +223,32 @@ export default function Cosmic3DScene() {
     scene.add(heroGroup);
 
     // =========================================================================
-    // SECTION 2: ABOUT - FLOATING 3D GEOMETRIC CORE / POLYHEDRON
+    // SECTION 2: ABOUT (y = -22) - FLOATING 3D GEOMETRIC POLYHEDRON & SATELLITES
     // =========================================================================
     const aboutGroup = new THREE.Group();
-    aboutGroup.position.set(isMobile ? 0 : -9.5, 0, -6);
-    aboutGroup.scale.setScalar(0.001); // Controlled by ScrollTrigger
+    // Positioned at y = -22 to seamlessly align with About section
+    aboutGroup.position.set(isMobile ? 0 : -10.5, -22, -4);
 
-    const icoGeo = track(new THREE.IcosahedronGeometry(2.8, 1));
+    const icoGeo = track(new THREE.IcosahedronGeometry(3.0, 1));
     const icoMat = track(
       new THREE.MeshStandardMaterial({
         color: 0x00f5ff,
         emissive: 0x0284c7,
-        emissiveIntensity: 0.55,
+        emissiveIntensity: 0.6,
         wireframe: true,
         transparent: true,
-        opacity: 0.6,
+        opacity: 0.65,
       })
     );
     const icoOuter = new THREE.Mesh(icoGeo, icoMat);
 
-    const dodecaGeo = track(new THREE.DodecahedronGeometry(1.6, 0));
+    const dodecaGeo = track(new THREE.DodecahedronGeometry(1.7, 0));
     const dodecaMat = track(
       new THREE.MeshStandardMaterial({
         color: 0x2e1065,
         emissive: 0x9333ea,
-        emissiveIntensity: 0.7,
-        roughness: 0.3,
+        emissiveIntensity: 0.75,
+        roughness: 0.25,
       })
     );
     const dodecaInner = new THREE.Mesh(dodecaGeo, dodecaMat);
@@ -259,7 +260,7 @@ export default function Cosmic3DScene() {
     const aboutPPos = new Float32Array(aboutParticleCount * 3);
     for (let p = 0; p < aboutParticleCount; p++) {
       const angle = (p / aboutParticleCount) * Math.PI * 2;
-      const radius = 3.8 + (p % 2) * 0.4;
+      const radius = 4.0 + (p % 2) * 0.5;
       aboutPPos[p * 3] = Math.cos(angle) * radius;
       aboutPPos[p * 3 + 1] = Math.sin(angle) * radius * 0.6;
       aboutPPos[p * 3 + 2] = (p % 3 - 1) * 0.8;
@@ -268,9 +269,9 @@ export default function Cosmic3DScene() {
     const aboutPMat = track(
       new THREE.PointsMaterial({
         color: 0xa855f7,
-        size: 0.4,
+        size: 0.45,
         transparent: true,
-        opacity: 0.8,
+        opacity: 0.85,
         blending: THREE.AdditiveBlending,
       })
     );
@@ -279,43 +280,41 @@ export default function Cosmic3DScene() {
     scene.add(aboutGroup);
 
     // =========================================================================
-    // SECTION 3: SKILLS - 3D TECHNOLOGY UNIVERSE & ROTATING TESSERACT
+    // SECTION 3: SKILLS (y = -44) - 3D TECHNOLOGY TESSERACT & ORBITING NODES
     // =========================================================================
     const skillsGroup = new THREE.Group();
-    skillsGroup.position.set(isMobile ? 0 : 9.5, 0, -6);
-    skillsGroup.scale.setScalar(0.001);
+    skillsGroup.position.set(isMobile ? 0 : 10.5, -44, -4);
 
-    // Central rotating cyber tesseract (outer cube + inner rotated cube)
-    const tesseractOuterGeo = track(new THREE.BoxGeometry(3.2, 3.2, 3.2));
+    const tesseractOuterGeo = track(new THREE.BoxGeometry(3.4, 3.4, 3.4));
     const tesseractOuterMat = track(
       new THREE.MeshStandardMaterial({
         color: 0x00f5ff,
         emissive: 0x00f5ff,
-        emissiveIntensity: 0.4,
+        emissiveIntensity: 0.45,
         wireframe: true,
       })
     );
     const tesseractOuter = new THREE.Mesh(tesseractOuterGeo, tesseractOuterMat);
 
-    const tesseractInnerGeo = track(new THREE.BoxGeometry(2.0, 2.0, 2.0));
+    const tesseractInnerGeo = track(new THREE.BoxGeometry(2.1, 2.1, 2.1));
     const tesseractInnerMat = track(
       new THREE.MeshStandardMaterial({
         color: 0xa855f7,
         emissive: 0x9333ea,
-        emissiveIntensity: 0.6,
+        emissiveIntensity: 0.65,
         wireframe: true,
       })
     );
     const tesseractInner = new THREE.Mesh(tesseractInnerGeo, tesseractInnerMat);
     skillsGroup.add(tesseractOuter, tesseractInner);
 
-    // 4 Orbiting Tech Elements (representing Languages, Frontend, Backend, Tools)
+    // 4 Orbiting Tech Polyhedra
     const techOrbitals = [];
     const techGeos = [
       track(new THREE.OctahedronGeometry(0.7, 0)),
-      track(new THREE.TetrahedronGeometry(0.7, 0)),
+      track(new THREE.TetrahedronGeometry(0.75, 0)),
       track(new THREE.BoxGeometry(0.8, 0.8, 0.8)),
-      track(new THREE.IcosahedronGeometry(0.65, 0)),
+      track(new THREE.IcosahedronGeometry(0.7, 0)),
     ];
     techGeos.forEach((geo, idx) => {
       const mat = track(
@@ -333,25 +332,23 @@ export default function Cosmic3DScene() {
     scene.add(skillsGroup);
 
     // =========================================================================
-    // SECTION 4: PROJECTS - CINEMATIC 3D PORTAL / DIMENSIONAL TUNNEL
+    // SECTION 4: PROJECTS (y = -66) - CINEMATIC 3D DIMENSIONAL PORTAL TUNNEL
     // =========================================================================
     const projectsGroup = new THREE.Group();
-    projectsGroup.position.set(0, 0, -12);
-    projectsGroup.scale.setScalar(0.001);
+    projectsGroup.position.set(0, -66, -10);
 
-    // Series of 5 concentric rotating portal rings spaced in depth
     const portalRings = [];
     for (let i = 0; i < 5; i++) {
-      const ringRadius = 6.0 - i * 0.6;
-      const pRingGeo = track(new THREE.TorusGeometry(ringRadius, 0.05, 16, 80));
+      const ringRadius = 6.2 - i * 0.6;
+      const pRingGeo = track(new THREE.TorusGeometry(ringRadius, 0.06, 16, 80));
       const pRingMat = track(
         new THREE.MeshStandardMaterial({
           color: i % 2 === 0 ? 0x00f5ff : 0xa855f7,
           emissive: i % 2 === 0 ? 0x0284c7 : 0x7c3aed,
-          emissiveIntensity: 0.55,
+          emissiveIntensity: 0.6,
           wireframe: true,
           transparent: true,
-          opacity: 0.5 - i * 0.06,
+          opacity: 0.55 - i * 0.05,
         })
       );
       const pRing = new THREE.Mesh(pRingGeo, pRingMat);
@@ -360,7 +357,6 @@ export default function Cosmic3DScene() {
       projectsGroup.add(pRing);
     }
 
-    // Swirling portal vortex particles
     const portalPCount = 90;
     const portalPGeo = track(new THREE.BufferGeometry());
     const portalPPos = new Float32Array(portalPCount * 3);
@@ -377,7 +373,7 @@ export default function Cosmic3DScene() {
         color: 0x00f5ff,
         size: 0.45,
         transparent: true,
-        opacity: 0.7,
+        opacity: 0.75,
         blending: THREE.AdditiveBlending,
       })
     );
@@ -386,29 +382,26 @@ export default function Cosmic3DScene() {
     scene.add(projectsGroup);
 
     // =========================================================================
-    // SECTION 5: CERTIFICATES - FLOATING GLASS ACHIEVEMENT CRYSTALS
+    // SECTION 5: CERTIFICATES (y = -88) - CRYSTAL OBELISK & FLOATING GLASS PANELS
     // =========================================================================
     const certsGroup = new THREE.Group();
-    certsGroup.position.set(isMobile ? 0 : -9.5, 0, -6);
-    certsGroup.scale.setScalar(0.001);
+    certsGroup.position.set(isMobile ? 0 : -10.5, -88, -4);
 
-    // Tall crystalline central prism
-    const crystalGeo = track(new THREE.OctahedronGeometry(2.5, 0));
+    const crystalGeo = track(new THREE.OctahedronGeometry(2.6, 0));
     const crystalMat = track(
       new THREE.MeshStandardMaterial({
         color: 0xa855f7,
         emissive: 0x6b21a8,
-        emissiveIntensity: 0.6,
+        emissiveIntensity: 0.65,
         wireframe: true,
         transparent: true,
-        opacity: 0.65,
+        opacity: 0.7,
       })
     );
     const centralCrystal = new THREE.Mesh(crystalGeo, crystalMat);
     centralCrystal.scale.set(1.0, 1.7, 1.0);
     certsGroup.add(centralCrystal);
 
-    // Floating glass badge planes
     const certPanels = [];
     for (let c = 0; c < 3; c++) {
       const panelGeo = track(new THREE.BoxGeometry(2.2, 1.4, 0.05));
@@ -417,7 +410,7 @@ export default function Cosmic3DScene() {
           color: 0x00f5ff,
           wireframe: true,
           transparent: true,
-          opacity: 0.45,
+          opacity: 0.5,
         })
       );
       const panel = new THREE.Mesh(panelGeo, panelMat);
@@ -427,22 +420,20 @@ export default function Cosmic3DScene() {
     scene.add(certsGroup);
 
     // =========================================================================
-    // SECTION 6: EXPERIENCE / HACKATHONS - 3D TROPHY & ORBITAL TIMELINE
+    // SECTION 6: EXPERIENCE / HACKATHONS (y = -110) - GEODESIC TROPHY & TIMELINE
     // =========================================================================
     const hackGroup = new THREE.Group();
-    hackGroup.position.set(isMobile ? 0 : 9.5, 0, -6);
-    hackGroup.scale.setScalar(0.001);
+    hackGroup.position.set(isMobile ? 0 : 10.5, -110, -4);
 
-    // Geodesic Trophy Crown
-    const trophyCrownGeo = track(new THREE.IcosahedronGeometry(2.0, 1));
+    const trophyCrownGeo = track(new THREE.IcosahedronGeometry(2.1, 1));
     const trophyCrownMat = track(
       new THREE.MeshStandardMaterial({
         color: 0x00f5ff,
         emissive: 0x0284c7,
-        emissiveIntensity: 0.55,
+        emissiveIntensity: 0.6,
         wireframe: true,
         transparent: true,
-        opacity: 0.6,
+        opacity: 0.65,
       })
     );
     const trophyCrown = new THREE.Mesh(trophyCrownGeo, trophyCrownMat);
@@ -452,7 +443,7 @@ export default function Cosmic3DScene() {
       new THREE.MeshStandardMaterial({
         color: 0x1e1b4b,
         emissive: 0x7c3aed,
-        emissiveIntensity: 0.45,
+        emissiveIntensity: 0.5,
         wireframe: true,
       })
     );
@@ -460,7 +451,7 @@ export default function Cosmic3DScene() {
     trophyBase.position.y = -2.2;
     hackGroup.add(trophyCrown, trophyBase);
 
-    // Orbital Timeline Helix Ring
+    // Double Helix Timeline Curve
     const helixCurve = new THREE.CatmullRomCurve3([
       new THREE.Vector3(-3.2, -2.5, 0),
       new THREE.Vector3(0, -1.0, 2.5),
@@ -473,7 +464,7 @@ export default function Cosmic3DScene() {
       new THREE.MeshBasicMaterial({
         color: 0xa855f7,
         transparent: true,
-        opacity: 0.6,
+        opacity: 0.65,
       })
     );
     const helixMesh = new THREE.Mesh(helixGeo, helixMat);
@@ -481,25 +472,22 @@ export default function Cosmic3DScene() {
     scene.add(hackGroup);
 
     // =========================================================================
-    // SECTION 7: RESUME - MINIMAL HOLOGRAPHIC FRAME & DATA PARTICLES
+    // SECTION 7: RESUME (y = -132) - HOLOGRAPHIC FRAME & DATA PARTICLES
     // =========================================================================
     const resumeGroup = new THREE.Group();
-    resumeGroup.position.set(isMobile ? 0 : -9.5, 0, -6);
-    resumeGroup.scale.setScalar(0.001);
+    resumeGroup.position.set(isMobile ? 0 : -10.0, -132, -4);
 
-    // Floating Holographic Document Slate
     const slateGeo = track(new THREE.BoxGeometry(3.6, 5.0, 0.04));
     const slateMat = track(
       new THREE.MeshBasicMaterial({
         color: 0x00f5ff,
         wireframe: true,
         transparent: true,
-        opacity: 0.4,
+        opacity: 0.45,
       })
     );
     const slateMesh = new THREE.Mesh(slateGeo, slateMat);
 
-    // Interior scanline grid
     const scanlinesGeo = track(
       new THREE.BufferGeometry().setFromPoints([
         new THREE.Vector3(-1.4, 1.5, 0.03),
@@ -516,7 +504,7 @@ export default function Cosmic3DScene() {
       new THREE.LineBasicMaterial({
         color: 0xa855f7,
         transparent: true,
-        opacity: 0.5,
+        opacity: 0.55,
       })
     );
     const scanlines = new THREE.LineSegments(scanlinesGeo, scanlinesMat);
@@ -524,25 +512,22 @@ export default function Cosmic3DScene() {
     scene.add(resumeGroup);
 
     // =========================================================================
-    // SECTION 8: CONTACT - 3D COMMUNICATION BEACON & CONVERGING STREAM
+    // SECTION 8: CONTACT (y = -154) - COMMUNICATION BEACON & CONVERGING STREAM
     // =========================================================================
     const contactGroup = new THREE.Group();
-    contactGroup.position.set(0, 1.5, -8);
-    contactGroup.scale.setScalar(0.001);
+    contactGroup.position.set(0, -154, -6);
 
-    // Central beacon spire
     const spireGeo = track(new THREE.CylinderGeometry(0.08, 0.4, 6.0, 16));
     const spireMat = track(
       new THREE.MeshStandardMaterial({
         color: 0x00f5ff,
         emissive: 0x00f5ff,
-        emissiveIntensity: 0.6,
+        emissiveIntensity: 0.65,
         wireframe: true,
       })
     );
     const spireMesh = new THREE.Mesh(spireGeo, spireMat);
 
-    // Pulsing radar broadcast rings
     const beaconRings = [];
     for (let b = 0; b < 3; b++) {
       const bRingGeo = track(new THREE.RingGeometry(1.6 + b * 1.2, 1.7 + b * 1.2, 32));
@@ -551,7 +536,7 @@ export default function Cosmic3DScene() {
           color: 0xa855f7,
           side: THREE.DoubleSide,
           transparent: true,
-          opacity: 0.5 - b * 0.12,
+          opacity: 0.55 - b * 0.12,
         })
       );
       const bRing = new THREE.Mesh(bRingGeo, bRingMat);
@@ -588,7 +573,7 @@ export default function Cosmic3DScene() {
         color: 0x00f5ff,
         size: 0.4,
         transparent: true,
-        opacity: 0.75,
+        opacity: 0.8,
         blending: THREE.AdditiveBlending,
       })
     );
@@ -597,122 +582,23 @@ export default function Cosmic3DScene() {
     scene.add(contactGroup);
 
     // =========================================================================
-    // 4. GSAP SCROLLTRIGGER ARCHITECTURE INTEGRATED WITH LENIS
+    // 4. PRECISE VERTICAL SCROLL CAMERA INTERPOLATION ARCHITECTURE
     // =========================================================================
-    const sectionTriggers = [];
-
-    // State object interpolated for camera flight
-    const cameraTarget = {
-      x: 0,
-      y: 0,
-      z: 26,
-      lookAtX: 0,
-      lookAtY: 0,
-    };
-
-    const sectionConfigs = [
-      {
-        id: 'home',
-        group: heroGroup,
-        camX: 0,
-        camY: 0,
-        camZ: 26,
-        lookX: 0,
-      },
-      {
-        id: 'about',
-        group: aboutGroup,
-        camX: isMobile ? 0 : 2.5,
-        camY: -3,
-        camZ: 24,
-        lookX: isMobile ? 0 : -2,
-      },
-      {
-        id: 'skills',
-        group: skillsGroup,
-        camX: isMobile ? 0 : -2.5,
-        camY: -6,
-        camZ: 24,
-        lookX: isMobile ? 0 : 2,
-      },
-      {
-        id: 'projects',
-        group: projectsGroup,
-        camX: 0,
-        camY: -9,
-        camZ: 19, // Subtle portal travel depth!
-        lookX: 0,
-      },
-      {
-        id: 'certifications',
-        group: certsGroup,
-        camX: isMobile ? 0 : 2.5,
-        camY: -12,
-        camZ: 24,
-        lookX: isMobile ? 0 : -2,
-      },
-      {
-        id: 'experience',
-        group: hackGroup,
-        camX: isMobile ? 0 : -2.5,
-        camY: -15,
-        camZ: 24,
-        lookX: isMobile ? 0 : 2,
-      },
-      {
-        id: 'resume',
-        group: resumeGroup,
-        camX: isMobile ? 0 : 2.5,
-        camY: -18,
-        camZ: 25,
-        lookX: isMobile ? 0 : -2,
-      },
-      {
-        id: 'contact',
-        group: contactGroup,
-        camX: 0,
-        camY: -21,
-        camZ: 23,
-        lookX: 0,
-      },
+    const sectionTargets = [
+      { id: 'home', y: 0, camX: 0, camZ: 26, lookX: 0 },
+      { id: 'about', y: -22, camX: isMobile ? 0 : 2.0, camZ: 25, lookX: isMobile ? 0 : -2.0 },
+      { id: 'skills', y: -44, camX: isMobile ? 0 : -2.0, camZ: 25, lookX: isMobile ? 0 : 2.0 },
+      { id: 'projects', y: -66, camX: 0, camZ: 20, lookX: 0 }, // deeper tunnel travel
+      { id: 'certifications', y: -88, camX: isMobile ? 0 : 2.0, camZ: 25, lookX: isMobile ? 0 : -2.0 },
+      { id: 'experience', y: -110, camX: isMobile ? 0 : -2.0, camZ: 25, lookX: isMobile ? 0 : 2.0 },
+      { id: 'resume', y: -132, camX: isMobile ? 0 : 2.0, camZ: 25, lookX: isMobile ? 0 : -2.0 },
+      { id: 'contact', y: -154, camX: 0, camZ: 23, lookX: 0 },
     ];
 
-    sectionConfigs.forEach((cfg) => {
-      const el = document.getElementById(cfg.id);
-      if (!el) return;
-
-      const trigger = ScrollTrigger.create({
-        trigger: el,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: true,
-        onUpdate: (self) => {
-          const p = self.progress; // 0 to 1 as element enters and leaves
-          // Parabolic bell curve for smooth scale & opacity: peaks at p = 0.5
-          const bell = Math.sin(p * Math.PI);
-
-          if (cfg.group) {
-            // Hero stays visible at scroll top (p < 0.5)
-            if (cfg.id === 'home') {
-              const heroFactor = Math.max(0, 1 - p * 1.5);
-              cfg.group.scale.setScalar(heroFactor);
-            } else {
-              cfg.group.scale.setScalar(Math.max(0.001, bell));
-            }
-          }
-
-          // If this section is active in the viewport, glide camera target
-          if (self.isActive) {
-            cameraTarget.camX = cfg.camX;
-            cameraTarget.camY = cfg.camY;
-            cameraTarget.camZ = cfg.camZ;
-            cameraTarget.lookAtX = cfg.lookX;
-          }
-        },
-      });
-
-      sectionTriggers.push(trigger);
-    });
+    // GSAP ScrollTrigger refresh
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 150);
 
     // 5. Mouse Parallax & Dynamic Tracking
     let mouseX = 0;
@@ -729,9 +615,9 @@ export default function Cosmic3DScene() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
+      ScrollTrigger.refresh();
     };
 
-    // Tab visibility handling for zero GPU drain in background
     let isTabVisible = true;
     const handleVisibilityChange = () => {
       isTabVisible = !document.hidden;
@@ -758,29 +644,48 @@ export default function Cosmic3DScene() {
       scrollVelocity += (deltaScroll * 0.05 - scrollVelocity) * 0.1;
       lastScrollY = currentScrollY;
 
-      // Smooth Camera Interpolation (GSAP target + Mouse Parallax)
-      const targetX = (cameraTarget.camX || 0) + mouseX * 1.2;
-      const targetY = (cameraTarget.camY || 0) - mouseY * 1.0;
-      const targetZ = cameraTarget.camZ || 26;
+      // Calculate overall scroll progress from 0 to 1
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const overallProgress = docHeight > 0 ? Math.min(Math.max(currentScrollY / docHeight, 0), 1) : 0;
 
-      camera.position.x += (targetX - camera.position.x) * 0.05;
-      camera.position.y += (targetY - camera.position.y) * 0.05;
-      camera.position.z += (targetZ - camera.position.z) * 0.05;
-      camera.lookAt(cameraTarget.lookAtX || 0, camera.position.y, 0);
+      // Base camera target along the y journey (0 down to -154)
+      let targetCamY = -overallProgress * 154;
+      let targetCamX = 0;
+      let targetCamZ = 26;
+      let targetLookX = 0;
 
-      // Starfield Warp Drift
-      const starPos = starGeo.attributes.position.array;
-      const warpSpeed = prefersReducedMotion ? 0.03 : 0.06 + Math.abs(scrollVelocity) * 0.25;
-      for (let i = 0; i < starCount; i++) {
-        starPos[i * 3 + 2] += warpSpeed;
-        if (starPos[i * 3 + 2] > 25) {
-          starPos[i * 3 + 2] = -120;
-          starPos[i * 3] = (Math.random() - 0.5) * 160;
-          starPos[i * 3 + 1] = (Math.random() - 0.5) * 160;
+      // Check current active section to fine-tune camera angle
+      const windowMid = window.innerHeight * 0.45;
+      for (let i = 0; i < sectionTargets.length; i++) {
+        const el = document.getElementById(sectionTargets[i].id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= windowMid && rect.bottom >= windowMid) {
+            targetCamX = sectionTargets[i].camX;
+            targetCamZ = sectionTargets[i].camZ;
+            targetLookX = sectionTargets[i].lookX;
+            break;
+          }
         }
       }
-      starGeo.attributes.position.needsUpdate = true;
-      starField.rotation.y = elapsedTime * 0.015;
+
+      // Smooth Camera Interpolation
+      const finalX = targetCamX + mouseX * 1.5;
+      const finalY = targetCamY - mouseY * 1.0;
+      const finalZ = targetCamZ;
+
+      camera.position.x += (finalX - camera.position.x) * 0.08;
+      camera.position.y += (finalY - camera.position.y) * 0.08;
+      camera.position.z += (finalZ - camera.position.z) * 0.08;
+      camera.lookAt(targetLookX, camera.position.y, 0);
+
+      // Move dynamic point lights with the camera
+      purpleLight.position.set(16, camera.position.y + 12, 14);
+      cyanLight.position.set(-16, camera.position.y - 12, 14);
+
+      // Starfield gentle rotation & subtle warp acceleration on scroll
+      const warpSpeed = prefersReducedMotion ? 0.015 : 0.02 + Math.abs(scrollVelocity) * 0.08;
+      starField.rotation.y = elapsedTime * 0.012 + overallProgress * 0.5;
 
       // Section 1: Hero Animations
       planetOuter.rotation.y = elapsedTime * 0.25;
@@ -844,7 +749,7 @@ export default function Cosmic3DScene() {
       beaconRings.forEach((bRing, idx) => {
         const scaleVal = 1 + ((elapsedTime * 1.2 + idx * 0.8) % 2.5);
         bRing.scale.setScalar(scaleVal);
-        bRing.material.opacity = Math.max(0, 0.6 - (scaleVal - 1) * 0.24);
+        bRing.material.opacity = Math.max(0, 0.65 - (scaleVal - 1) * 0.25);
       });
 
       // Converging Particles update
@@ -861,7 +766,7 @@ export default function Cosmic3DScene() {
       }
       convPGeo.attributes.position.needsUpdate = true;
 
-      // Meteors update
+      // Shooting stars update
       meteors.forEach((m) => {
         if (!m.active) {
           m.timer--;
@@ -869,7 +774,7 @@ export default function Cosmic3DScene() {
             m.active = true;
             m.mesh.position.set(
               (Math.random() - 0.2) * 80,
-              20 + Math.random() * 20,
+              camera.position.y + 20 + Math.random() * 20,
               -15 - Math.random() * 20
             );
             m.opacity = 0;
@@ -879,14 +784,14 @@ export default function Cosmic3DScene() {
           m.mesh.position.y -= m.speed * 0.6;
           m.mesh.position.z -= m.speed * 0.3;
 
-          if (m.mesh.position.y > 0) {
+          if (m.mesh.position.y > camera.position.y) {
             m.opacity = Math.min(m.opacity + 0.12, 0.85);
           } else {
             m.opacity = Math.max(m.opacity - 0.08, 0);
           }
           m.mesh.material.opacity = m.opacity;
 
-          if (m.mesh.position.y < -35 || (m.opacity <= 0 && m.mesh.position.y < 0)) {
+          if (m.mesh.position.y < camera.position.y - 35 || (m.opacity <= 0 && m.mesh.position.y < camera.position.y)) {
             m.active = false;
             m.timer = 120 + Math.random() * 300;
             m.mesh.material.opacity = 0;
@@ -906,10 +811,6 @@ export default function Cosmic3DScene() {
       window.removeEventListener('resize', handleResize);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
 
-      // Kill all created ScrollTriggers
-      sectionTriggers.forEach((trigger) => trigger.kill());
-
-      // Dispose all tracked geometries and materials
       disposables.forEach((item) => {
         if (item && typeof item.dispose === 'function') {
           item.dispose();
@@ -923,8 +824,7 @@ export default function Cosmic3DScene() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none w-full h-full"
-      style={{ zIndex: -10 }}
+      className="fixed inset-0 pointer-events-none w-full h-full z-0"
       aria-hidden="true"
     />
   );
