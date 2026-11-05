@@ -51,24 +51,29 @@ export default function Skills() {
       : skillCategories.filter((c) => c.name === selectedCategory);
 
   return (
-    <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-200/80">
+    <section id="skills" className="relative py-24 px-4 sm:px-6 lg:px-8 border-t border-purple-500/15 overflow-hidden">
+      
+      {/* Background Glow */}
+      <div className="absolute top-1/3 -right-20 w-96 h-96 bg-purple-600/10 rounded-full blur-[130px] pointer-events-none -z-10" />
+      <div className="absolute bottom-10 left-10 w-80 h-80 bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none -z-10" />
+
       <div className="max-w-6xl mx-auto">
         <SectionHeading
           badge="TECH STACK"
           title="Skills &amp; Technologies"
-          subtitle="A comprehensive overview of languages, frameworks, and developer tooling I work with."
+          subtitle="A comprehensive overview of languages, frameworks, and developer tooling verified in my repositories."
         />
 
         {/* Category Filters */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer ${
+              className={`px-4 py-2 rounded-full text-xs font-medium transition-all cursor-pointer backdrop-blur-md ${
                 selectedCategory === cat
-                  ? 'bg-blue-600 text-white font-semibold shadow-md shadow-blue-500/20'
-                  : 'bg-white hover:bg-slate-50 text-slate-600 hover:text-slate-900 border border-slate-200 shadow-sm'
+                  ? 'btn-neon-pill text-white font-semibold'
+                  : 'bg-[#090d24]/70 hover:bg-[#111738] text-slate-400 hover:text-white border border-purple-500/20'
               }`}
             >
               {cat}
@@ -81,18 +86,18 @@ export default function Skills() {
           {filteredCategories.map((category) => (
             <div
               key={category.name}
-              className="light-card rounded-2xl p-6 flex flex-col justify-between"
+              className="cosmic-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-display font-bold text-lg text-slate-900">
+                  <h3 className="font-display font-bold text-lg text-white">
                     {category.name}
                   </h3>
-                  <span className="text-[11px] font-mono font-medium px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700">
+                  <span className="text-[11px] font-mono font-medium px-3 py-1 rounded-full bg-[#0a0f28] border border-purple-500/30 text-purple-300">
                     {category.skills.length} skills
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 mb-6">
+                <p className="text-xs text-slate-400 mb-6 font-light">
                   {category.description}
                 </p>
 
@@ -102,17 +107,17 @@ export default function Skills() {
                     return (
                       <div
                         key={sIdx}
-                        className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200/80 hover:border-blue-300 transition-colors"
+                        className="flex items-center justify-between p-3 rounded-2xl bg-[#090d24]/60 border border-purple-500/15 hover:border-purple-500/40 hover:bg-[#0e1436] transition-all group"
                       >
                         <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-blue-600 border border-slate-200 shadow-sm">
+                          <div className="w-8 h-8 rounded-xl bg-purple-500/10 border border-purple-500/25 flex items-center justify-center text-purple-400 group-hover:text-cyan-300 group-hover:scale-105 transition-all shadow-sm">
                             <IconComponent className="w-4 h-4" />
                           </div>
                           <div>
-                            <div className="text-sm font-semibold text-slate-900">
+                            <div className="text-sm font-semibold text-slate-200 group-hover:text-white transition-colors">
                               {skill.name}
                             </div>
-                            <div className="text-[10px] text-slate-500 font-mono">
+                            <div className="text-[10px] text-slate-400 font-mono">
                               {skill.level}
                             </div>
                           </div>
