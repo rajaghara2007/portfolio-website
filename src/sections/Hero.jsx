@@ -193,7 +193,7 @@ export default function Hero({ onNavigate }) {
                     onNavigate('#projects', 'FEATURED PROJECTS');
                   }
                 }}
-                className="btn-neon-pill inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-white font-semibold text-sm cursor-pointer shadow-lg hover:shadow-cyan-500/25 transition-all"
+                className="btn-neon-pill inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-white font-semibold text-sm cursor-pointer shadow-lg hover:shadow-[0_0_25px_rgba(0,245,255,0.4)] hover:scale-[1.03] active:scale-[0.97] transition-all"
               >
                 <span>Explore My Work</span>
                 <ArrowRight className="w-4 h-4 text-cyan-300" />
@@ -208,7 +208,7 @@ export default function Hero({ onNavigate }) {
                     onNavigate('#resume', 'CURRICULUM VITAE');
                   }
                 }}
-                className="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-[#0a0e24]/80 hover:bg-[#111738] border border-purple-500/30 hover:border-purple-400 text-slate-200 hover:text-white text-sm font-medium transition-all backdrop-blur-md shadow-md cursor-pointer"
+                className="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-[#0a0e24]/80 hover:bg-[#111738] border border-purple-500/30 hover:border-purple-400 text-slate-200 hover:text-white text-sm font-medium transition-all backdrop-blur-md shadow-md hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:scale-[1.03] active:scale-[0.97] cursor-pointer"
               >
                 <div className="w-8 h-8 rounded-full bg-purple-600/30 border border-purple-500/60 flex items-center justify-center text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.6)]">
                   <Play className="w-3.5 h-3.5 fill-current ml-0.5" />

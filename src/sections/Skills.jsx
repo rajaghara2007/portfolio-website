@@ -99,7 +99,7 @@ export default function Skills() {
         </motion.div>
 
         {/* Categories Grid with Animated Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 [perspective:1200px]">
           <AnimatePresence mode="wait">
             {filteredCategories.map((category, idx) => (
               <motion.div
@@ -108,7 +108,14 @@ export default function Skills() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -15, scale: 0.98 }}
                 transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="cosmic-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between border border-purple-500/25 hover:border-purple-500/50 relative overflow-hidden group"
+                whileHover={{
+                  y: -5,
+                  rotateX: 1.5,
+                  boxShadow: '0 15px 35px -10px rgba(168, 85, 247, 0.25)',
+                  borderColor: 'rgba(168, 85, 247, 0.55)',
+                  transition: { duration: 0.25 },
+                }}
+                className="cosmic-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between border border-purple-500/25 relative overflow-hidden group"
               >
                 {/* Subtle card top glowing light sheen */}
                 <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-80 h-24 bg-gradient-to-b from-purple-500/20 to-transparent blur-2xl pointer-events-none" />

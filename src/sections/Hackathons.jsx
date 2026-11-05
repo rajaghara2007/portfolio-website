@@ -29,7 +29,7 @@ export default function Hackathons() {
           />
         </motion.div>
 
-        <div className="space-y-6">
+        <div className="space-y-6 [perspective:1200px]">
           {hackathons.map((hack, idx) => (
             <motion.div
               key={hack.id}
@@ -37,8 +37,14 @@ export default function Hackathons() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-70px" }}
               transition={{ duration: 0.65, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -4, transition: { duration: 0.25 } }}
-              className="cosmic-card rounded-3xl p-6 sm:p-8 space-y-6 border border-purple-500/25 hover:border-purple-500/50 relative overflow-hidden group"
+              whileHover={{
+                y: -5,
+                rotateX: 1,
+                boxShadow: '0 15px 35px -10px rgba(0, 245, 255, 0.2)',
+                borderColor: 'rgba(0, 245, 255, 0.5)',
+                transition: { duration: 0.25 },
+              }}
+              className="cosmic-card rounded-3xl p-6 sm:p-8 space-y-6 border border-purple-500/25 relative overflow-hidden group"
             >
               {/* Subtle card top glowing light sheen */}
               <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-24 bg-gradient-to-b from-purple-500/20 to-transparent blur-2xl pointer-events-none" />

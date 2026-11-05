@@ -66,7 +66,7 @@ export default function Projects() {
         </motion.div>
 
         {/* Projects Cards Grid: Furnished, Clean, and Elegant with Smooth Motion */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 [perspective:1200px]">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, idx) => (
               <motion.div
@@ -81,10 +81,15 @@ export default function Projects() {
                   ease: [0.16, 1, 0.3, 1],
                 }}
                 whileHover={{
-                  y: -6,
+                  y: -8,
+                  scale: 1.015,
+                  rotateX: 2,
+                  rotateY: -2,
+                  boxShadow: '0 20px 40px -15px rgba(0, 245, 255, 0.25)',
+                  borderColor: 'rgba(0, 245, 255, 0.6)',
                   transition: { duration: 0.25, ease: 'easeOut' },
                 }}
-                className="cosmic-card rounded-3xl overflow-hidden flex flex-col justify-between group border border-purple-500/25 hover:border-purple-500/60 relative backdrop-blur-xl bg-[#090d24]/80 shadow-[0_10px_35px_-5px_rgba(0,0,0,0.6)]"
+                className="cosmic-card rounded-3xl overflow-hidden flex flex-col justify-between group border border-purple-500/25 relative backdrop-blur-xl bg-[#090d24]/80 shadow-[0_10px_35px_-5px_rgba(0,0,0,0.6)]"
               >
                 {/* Subtle Card Ambient Light Sheen */}
                 <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-80 h-24 bg-gradient-to-b from-purple-500/15 to-transparent blur-2xl pointer-events-none" />
