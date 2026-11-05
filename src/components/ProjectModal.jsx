@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, ExternalLink, Github, Youtube, FileText, CheckCircle2, Layers } from 'lucide-react';
+import { X, ExternalLink, Github, CheckCircle2, Layers } from 'lucide-react';
 
 export default function ProjectModal({ project, isOpen, onClose }) {
   useEffect(() => {
@@ -23,48 +23,48 @@ export default function ProjectModal({ project, isOpen, onClose }) {
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"
       />
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-2xl bg-dark-surface border border-dark-border rounded-2xl shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col">
+      <div className="relative w-full max-w-2xl bg-white border border-slate-200 rounded-3xl shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col">
         {/* Banner */}
-        <div className="relative h-48 sm:h-56 w-full bg-dark-bg overflow-hidden border-b border-dark-border">
+        <div className="relative h-48 sm:h-56 w-full bg-slate-100 overflow-hidden border-b border-slate-100">
           <img
             src={project.previewImage}
             alt={project.title}
             className="w-full h-full object-cover object-top"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-dark-surface via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-transparent to-transparent" />
           
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-full bg-black/60 hover:bg-black/90 text-white transition-colors cursor-pointer"
+            className="absolute top-4 right-4 p-2 rounded-full bg-white/90 hover:bg-white text-slate-700 shadow-md transition-colors cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
           </button>
 
           <div className="absolute bottom-4 left-6 right-6">
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-blue-600 text-white">
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-blue-600 text-white shadow-sm">
               {project.category}
             </span>
-            <h3 className="text-2xl font-display font-bold text-white mt-1">
+            <h3 className="text-2xl font-display font-extrabold text-slate-900 mt-1">
               {project.title}
             </h3>
-            <p className="text-blue-400 text-xs font-mono">
+            <p className="text-blue-600 text-xs font-mono font-medium">
               {project.tagline}
             </p>
           </div>
         </div>
 
         {/* Scrollable Content */}
-        <div className="p-6 overflow-y-auto space-y-5">
+        <div className="p-6 sm:p-8 overflow-y-auto space-y-5">
           <div>
             <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-2 font-semibold">
               Project Overview
             </h4>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-slate-600 text-sm leading-relaxed">
               {project.longDescription || project.description}
             </p>
           </div>
@@ -72,16 +72,16 @@ export default function ProjectModal({ project, isOpen, onClose }) {
           {project.features && project.features.length > 0 && (
             <div>
               <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-2.5 font-semibold flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-blue-400" />
+                <CheckCircle2 className="w-4 h-4 text-blue-600" />
                 Key Features &amp; Architecture
               </h4>
               <ul className="grid grid-cols-1 gap-2">
                 {project.features.map((feat, idx) => (
                   <li
                     key={idx}
-                    className="flex items-start gap-2 text-xs text-slate-300 bg-dark-card p-2.5 rounded-lg border border-dark-border"
+                    className="flex items-start gap-2 text-xs text-slate-700 bg-slate-50 p-2.5 rounded-xl border border-slate-200/80"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-1.5 shrink-0" />
                     <span>{feat}</span>
                   </li>
                 ))}
@@ -91,14 +91,14 @@ export default function ProjectModal({ project, isOpen, onClose }) {
 
           <div>
             <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-2 font-semibold flex items-center gap-1.5">
-              <Layers className="w-4 h-4 text-indigo-400" />
+              <Layers className="w-4 h-4 text-indigo-600" />
               Technologies Used
             </h4>
             <div className="flex flex-wrap gap-2">
               {project.techStack.map((tech, i) => (
                 <span
                   key={i}
-                  className="px-2.5 py-0.5 rounded-md bg-dark-card text-slate-300 text-xs font-mono border border-dark-border"
+                  className="px-2.5 py-0.5 rounded-md bg-slate-100 text-slate-700 text-xs font-mono border border-slate-200"
                 >
                   {tech}
                 </span>
@@ -106,13 +106,13 @@ export default function ProjectModal({ project, isOpen, onClose }) {
             </div>
           </div>
 
-          <div className="pt-4 border-t border-dark-border flex flex-wrap gap-3">
+          <div className="pt-4 border-t border-slate-100 flex flex-wrap gap-3">
             {project.liveDemoUrl && (
               <a
                 href={project.liveDemoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs transition-colors"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-sm shadow-blue-500/20 transition-all hover:scale-105 active:scale-95"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
                 <span>Live Demo</span>
@@ -124,7 +124,7 @@ export default function ProjectModal({ project, isOpen, onClose }) {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-dark-card hover:bg-dark-hover border border-dark-border text-slate-200 hover:text-white font-medium text-xs transition-colors"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 hover:text-slate-900 font-medium text-xs shadow-sm transition-all hover:border-slate-300"
               >
                 <Github className="w-3.5 h-3.5" />
                 <span>GitHub Repository</span>

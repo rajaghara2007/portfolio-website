@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Linkedin, Code2, Mail, Heart, ArrowUp } from 'lucide-react';
+import { Github, Linkedin, Code2, Mail, ArrowUp } from 'lucide-react';
 import { socialLinks } from '../data/socialLinks';
 
 export default function Footer() {
@@ -8,28 +8,28 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-dark-border/60 bg-dark-bg/80 py-12">
+    <footer className="border-t border-slate-200 bg-white py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           
-          {/* Brand info */}
+          {/* Brand */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-1">
-            <span className="font-display font-bold text-white text-lg tracking-tight">
+            <span className="font-display font-bold text-slate-900 text-lg tracking-tight">
               Raj Aghara
             </span>
-            <p className="text-xs text-slate-400">
-              Full Stack Developer &amp; Computer Science Student
+            <p className="text-xs text-slate-500">
+              Full Stack Developer &amp; CSE Student at Swaminarayan University
             </p>
           </div>
 
-          {/* Social Links */}
-          <div className="flex items-center gap-4 text-slate-400">
+          {/* Social Icons */}
+          <div className="flex items-center gap-4 text-slate-600">
             {socialLinks.github.url && (
               <a
                 href={socialLinks.github.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
+                className="p-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors"
                 aria-label="GitHub"
               >
                 <Github className="w-4 h-4" />
@@ -40,7 +40,7 @@ export default function Footer() {
                 href={socialLinks.linkedin.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-blue-400 transition-colors"
+                className="p-2 rounded-lg hover:bg-slate-100 hover:text-blue-600 transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-4 h-4" />
@@ -51,7 +51,7 @@ export default function Footer() {
                 href={socialLinks.leetcode.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-amber-400 transition-colors"
+                className="p-2 rounded-lg hover:bg-slate-100 hover:text-amber-600 transition-colors"
                 aria-label="LeetCode"
               >
                 <Code2 className="w-4 h-4" />
@@ -60,7 +60,7 @@ export default function Footer() {
             {socialLinks.email.address && (
               <a
                 href={`mailto:${socialLinks.email.address}`}
-                className="hover:text-emerald-400 transition-colors"
+                className="p-2 rounded-lg hover:bg-slate-100 hover:text-emerald-600 transition-colors"
                 aria-label="Email"
               >
                 <Mail className="w-4 h-4" />
@@ -68,12 +68,12 @@ export default function Footer() {
             )}
           </div>
 
-          {/* Scroll to Top */}
+          {/* Copyright & Scroll to Top */}
           <div className="flex items-center gap-3 text-xs text-slate-500 font-mono">
             <span>© {new Date().getFullYear()} Raj Aghara</span>
             <button
               onClick={scrollToTop}
-              className="p-2 rounded-lg bg-dark-card border border-dark-border text-slate-400 hover:text-white transition-colors cursor-pointer"
+              className="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 hover:text-slate-900 transition-all cursor-pointer shadow-sm hover:scale-105 active:scale-95"
               aria-label="Back to top"
             >
               <ArrowUp className="w-4 h-4" />

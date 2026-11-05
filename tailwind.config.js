@@ -4,30 +4,36 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        dark: {
-          bg: '#090a0f',
-          surface: '#11131b',
-          card: '#161924',
-          border: 'rgba(255, 255, 255, 0.08)',
-          hover: '#1e2230',
+        primary: {
+          50: '#eff6ff',
+          100: '#dbeafe',
+          500: '#3b82f6',
+          600: '#2563eb',
+          700: '#1d4ed8',
         },
-        brand: {
-          blue: '#3b82f6',
-          indigo: '#6366f1',
-          violet: '#8b5cf6',
-          cyan: '#06b6d4',
-          emerald: '#10b981',
-        }
       },
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
         display: ['"Space Grotesk"', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
+      animation: {
+        'float': 'float 4s ease-in-out infinite',
+        'pulse-subtle': 'pulseSubtle 3s ease-in-out infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-8px)' },
+        },
+        pulseSubtle: {
+          '0%, 100%': { opacity: '0.6' },
+          '50%': { opacity: '1' },
+        }
+      }
     },
   },
   plugins: [],
