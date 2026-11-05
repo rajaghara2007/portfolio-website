@@ -413,3 +413,4 @@ export default function Cosmic3DScene() {
     />
   );
 }
+

@@ -100,3 +100,4 @@ export default function LogoPageTransition({ isOpen, targetLabel, onTransitionCo
     </AnimatePresence>
   );
 }
+
