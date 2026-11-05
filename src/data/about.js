@@ -1,44 +1,46 @@
 /**
- * About Data File
- * 
- * Fill in or update personal bio, educational credentials, and journey details.
- * Empty or TODO fields display clean placeholders in the UI.
+ * About Data File - Raj Aghara
  */
 
 export const aboutData = {
   fullName: 'Raj Aghara',
-  headline: 'Full Stack Developer / Software Developer',
-  profileImage: '/images/profile.svg', // Switch to '/images/profile.jpg' once you upload your personal photo
+  headline: 'Full Stack Developer & Software Developer',
+  location: 'Gujarat, India',
+  email: 'rajaghara2007@gmail.com',
+  github: 'https://github.com/rajaghara2007',
+  profileImage: '/images/profile.svg',
   
-  bio: 'I am a passionate software developer and full-stack engineer driven by building robust, user-centric web applications and vulnerability intelligence platforms. With a deep interest in modern web engineering and cybersecurity tooling, I focus on crafting scalable, high-performance architectures and engaging digital experiences.',
+  bio: "I'm a passionate Full Stack Developer and Computer Science student focused on building modern, high-performance web applications and security intelligence tools. I specialize in building responsive frontend architectures using React, Vite, and Tailwind CSS, coupled with robust Node.js backend services.",
   
-  developerJourney: 'My journey in software engineering began with a curiosity for how complex systems operate and how interactive interfaces can simplify mission-critical data. From architecting AegisLens—a security intelligence and vulnerability assessment suite—to exploring frontend frameworks and 3D web environments, I continuously build, test, and refine software to deliver measurable value.',
+  developerJourney: "My programming journey centers around crafting clean, accessible, and practical software solutions. From building AegisLens—an enterprise vulnerability intelligence platform—to exploring scalable web apps and AI-assisted task workflows, I enjoy translating complex systems into elegant, intuitive user interfaces.",
   
   education: [
     {
-      degree: 'TODO: Add degree (e.g., B.Tech / B.S. in Computer Science)',
-      institution: 'TODO: Add your College / University',
-      duration: 'TODO: Add years (e.g., 2022 - 2026)',
-      grade: 'TODO: Add GPA / percentage (optional)',
-      location: 'TODO: Add City, Country',
+      degree: 'B.Tech in Computer Science & Engineering',
+      institution: 'Swaminarayan University / CodingGita',
+      duration: '2023 - Present',
+      location: 'Gujarat, India',
+      description: 'Focusing on Data Structures & Algorithms, Full Stack Web Development, Database Management, and Software Engineering Principles.',
       highlights: [
-        'TODO: Add academic honors, relevant coursework, or leadership roles in src/data/about.js'
+        'Active problem solver with strong focus on DSA and modern JavaScript frameworks',
+        'Built full-stack platforms and vulnerability assessment tools (AegisLens)',
+        'Participating in developer hackathons and collaborative open-source builds'
       ]
     }
   ],
   
   interests: [
-    'Full Stack Web Architecture',
-    'Cybersecurity & Vulnerability Intelligence',
-    'Interactive 3D Web Graphics & WebGL',
-    'Open Source & Tooling Innovation'
+    'Full Stack Web Development',
+    'Vulnerability Intelligence & Cybersecurity',
+    'Modern React & Component Design',
+    'Cloud Deployments & Performance Optimization',
+    'Data Structures & Algorithms'
   ],
   
   stats: [
-    { label: 'Verified Repos', value: '5+' },
-    { label: 'Core Stack', value: 'React / TS / Node' },
-    { label: 'Security Tooling', value: 'AegisLens' },
-    { label: 'Production Apps', value: '1+ Deployed' }
+    { label: 'Featured Projects', value: '3+' },
+    { label: 'Core Framework', value: 'React & Node' },
+    { label: 'Production Deployed', value: 'AegisLens' },
+    { label: 'Location', value: 'India' }
   ]
 };
-

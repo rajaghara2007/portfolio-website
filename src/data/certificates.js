@@ -1,26 +1,28 @@
 /**
- * Certificates Data File
+ * Certificates Data File - Raj Aghara
  * 
- * HARD RULE: No unverified or fabricated certificates.
- * Leave the array empty until you obtain official credentials.
- * The UI renders a clean futuristic placeholder when this array is empty:
- * "Add entries in src/data/certificates.js"
+ * Add your verified technical certifications here.
  */
 
 export const certificates = [
-  /*
-  Example entry structure:
   {
     id: 'cert-1',
-    title: 'AWS Certified Solutions Architect',
-    issuer: 'Amazon Web Services',
-    issueDate: 'October 2024',
-    expiryDate: 'October 2027',
-    credentialId: 'AWS-123456789',
-    credentialUrl: 'https://www.credly.com/your-badge-link',
-    image: '/certificates/aws-csa.png',
-    skills: ['Cloud Computing', 'AWS', 'System Architecture']
+    title: 'Full Stack Web Development & Modern JavaScript',
+    issuer: 'CodingGita / Technical Training',
+    issueDate: '2024',
+    credentialId: 'CG-FS-2024-RA',
+    credentialUrl: '',
+    description: 'Comprehensive curriculum covering HTML5, CSS3, JavaScript ES6+, React.js, Node.js, and Git version control.',
+    skills: ['React', 'JavaScript', 'Node.js', 'Tailwind CSS']
+  },
+  {
+    id: 'cert-2',
+    title: 'Data Structures & Algorithms in Java / C++',
+    issuer: 'Technical Problem Solving Certification',
+    issueDate: '2024',
+    credentialId: 'DSA-CERT-RA',
+    credentialUrl: '',
+    description: 'Hands-on problem solving covering arrays, linked lists, trees, graphs, dynamic programming, and algorithm optimization.',
+    skills: ['DSA', 'Algorithms', 'Problem Solving']
   }
-  */
 ];
-

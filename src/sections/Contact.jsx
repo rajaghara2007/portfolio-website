@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import {
   Mail,
@@ -7,20 +6,15 @@ import {
   Github,
   Linkedin,
   Code2,
-  Twitter,
-  Youtube,
+  MapPin,
   CheckCircle2,
   AlertCircle,
   Loader2,
-  ShieldAlert,
-  Clock,
-  Radio
+  ExternalLink
 } from 'lucide-react';
 import SectionHeading from '../components/SectionHeading';
-import TacticalButton from '../components/TacticalButton';
 import { socialLinks } from '../data/socialLinks';
-
-const THROTTLE_SECONDS = 30;
+import { aboutData } from '../data/about';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -33,22 +27,21 @@ export default function Contact() {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | submitting | success | error
   const [errorMessage, setErrorMessage] = useState('');
-  const [cooldown, setCooldown] = useState(0);
 
   const validate = () => {
     const errs = {};
     if (!formData.name.trim() || formData.name.trim().length < 2) {
-      errs.name = 'Please provide your full name (at least 2 characters).';
+      errs.name = 'Please provide your name (at least 2 characters).';
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim() || !emailRegex.test(formData.email.trim())) {
       errs.email = 'Please provide a valid email address.';
     }
     if (!formData.subject.trim() || formData.subject.trim().length < 3) {
-      errs.subject = 'Subject line is required (at least 3 characters).';
+      errs.subject = 'Subject is required (at least 3 characters).';
     }
     if (!formData.message.trim() || formData.message.trim().length < 10) {
-      errs.message = 'Message must be at least 10 characters long.';
+      errs.message = 'Message must be at least 10 characters.';
     }
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -57,23 +50,8 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Honeypot check (anti-bot)
     if (honeypot) {
-      console.warn('Bot submission blocked via honeypot.');
       setStatus('success');
-      return;
-    }
-
-    // Rate limit / Throttle check
-    const lastSent = localStorage.getItem('last_contact_sent');
-    const now = Date.now();
-    if (lastSent && now - parseInt(lastSent, 10) < THROTTLE_SECONDS * 1000) {
-      const remaining = Math.ceil(
-        (THROTTLE_SECONDS * 1000 - (now - parseInt(lastSent, 10))) / 1000
-      );
-      setCooldown(remaining);
-      setErrorMessage(`Please wait ${remaining}s before sending another transmission.`);
-      setStatus('error');
       return;
     }
 
@@ -86,14 +64,13 @@ export default function Contact() {
     const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-    // Check if EmailJS keys are configured
     if (!serviceId || !templateId || !publicKey) {
       setTimeout(() => {
         setStatus('error');
         setErrorMessage(
-          'EmailJS credentials are not yet configured in your .env file. Please set VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, and VITE_EMAILJS_PUBLIC_KEY.'
+          'EmailJS credentials are not yet configured in .env. Please configure VITE_EMAILJS_* keys.'
         );
-      }, 600);
+      }, 500);
       return;
     }
 
@@ -110,226 +87,163 @@ export default function Contact() {
         publicKey
       );
 
-      localStorage.setItem('last_contact_sent', Date.now().toString());
       setStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
       setErrors({});
     } catch (err) {
-      console.error('EmailJS transmission failed:', err);
+      console.error('EmailJS error:', err);
       setStatus('error');
       setErrorMessage(
-        err?.text || 'Failed to send message. Please reach out directly via email.'
+        err?.text || 'Failed to send message. Please send an email directly.'
       );
     }
   };
 
   return (
-    <section id="contact" className="relative py-24 px-4 sm:px-6 lg:px-8 z-10">
+    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 border-t border-dark-border/40">
       <div className="max-w-6xl mx-auto">
         <SectionHeading
-          index="// 09_BAT_SIGNAL"
-          title="Encrypted Communications"
-          subtitle="Direct transmission channel for engineering inquiries, security architecture, and technical roles."
+          badge="GET IN TOUCH"
+          title="Contact & Connect"
+          subtitle="Interested in collaborating, hiring, or discussing software engineering opportunities? Reach out anytime."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          {/* Left Column: Direct Info & Social Hub */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="lg:col-span-5 space-y-6"
-          >
-            <div className="glass-panel-glow bg-slate-950/90 rounded-2xl p-6 sm:p-8 border border-amber-500/20 space-y-4 tactical-bracket">
-              <div className="flex items-center gap-2 text-amber-400 font-mono text-xs">
-                <Radio className="w-4 h-4 animate-pulse" />
-                <span>SECURE DISPATCH FREQUENCY</span>
-              </div>
-              <h3 className="text-xl sm:text-2xl font-display font-bold text-white">
-                Initiate encrypted transmission.
+          {/* Left Column: Direct Contact Info Cards */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="portfolio-card rounded-2xl p-6 sm:p-8 space-y-4">
+              <h3 className="text-xl font-display font-bold text-white">
+                Let's talk about building something great.
               </h3>
               <p className="text-slate-400 text-sm leading-relaxed">
-                Whether you have an inquiry regarding AegisLens vulnerability orchestration, a software engineering role, or security architecture, dispatch a packet directly.
+                I am actively seeking software engineering roles, full-stack internships, and collaborative development opportunities. Feel free to contact me via email or through my profiles below.
               </p>
 
-              {socialLinks.email.address && (
-                <div className="pt-2">
-                  <span className="text-xs font-mono text-slate-500 block mb-1">
-                    Direct Channel
-                  </span>
-                  <a
-                    href={`mailto:${socialLinks.email.address}`}
-                    className="text-base font-mono font-medium text-amber-400 hover:text-white transition-colors"
-                  >
-                    {socialLinks.email.address}
-                  </a>
+              {/* Direct Email Card */}
+              <a
+                href={`mailto:${aboutData.email}`}
+                className="flex items-center gap-3 p-3.5 rounded-xl bg-dark-bg border border-dark-border hover:border-blue-500/40 transition-colors group"
+              >
+                <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+                  <Mail className="w-5 h-5" />
                 </div>
-              )}
+                <div>
+                  <div className="text-xs text-slate-400 font-mono">Email Address</div>
+                  <div className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">
+                    {aboutData.email}
+                  </div>
+                </div>
+              </a>
+
+              {/* Location Card */}
+              <div className="flex items-center gap-3 p-3.5 rounded-xl bg-dark-bg border border-dark-border">
+                <div className="w-10 h-10 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+                  <MapPin className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-xs text-slate-400 font-mono">Location</div>
+                  <div className="text-sm font-semibold text-white">
+                    {aboutData.location}
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Social Hub Cards */}
-            <div className="glass-panel-subtle bg-slate-950/80 rounded-2xl p-6 border border-slate-800 space-y-4">
-              <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold block">
-                Targeted Profiles // WayneTech Uplinks
-              </span>
+            {/* Profiles Card */}
+            <div className="portfolio-card rounded-2xl p-6 space-y-3">
+              <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold mb-3">
+                Professional Links
+              </h4>
 
-              <div className="space-y-2.5">
-                {/* Verified GitHub */}
+              <div className="space-y-2">
                 <a
                   href={socialLinks.github.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 rounded-xl bg-slate-900/80 hover:bg-slate-900 border border-slate-800 hover:border-amber-500/50 text-slate-200 transition-all active:scale-98 hover:shadow-bat-gold"
+                  className="flex items-center justify-between p-3 rounded-xl bg-dark-bg hover:bg-dark-hover border border-dark-border text-slate-300 hover:text-white transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <Github className="w-4 h-4 text-amber-400" />
-                    <div>
-                      <div className="text-sm font-semibold">GitHub</div>
-                      <div className="text-[11px] font-mono text-slate-400">
-                        {socialLinks.github.handle}
-                      </div>
-                    </div>
+                    <Github className="w-4 h-4 text-blue-400" />
+                    <span className="text-sm font-medium">GitHub</span>
                   </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30">
-                    Verified Link
+                  <span className="text-xs font-mono text-slate-500 flex items-center gap-1">
+                    {socialLinks.github.handle}
+                    <ExternalLink className="w-3 h-3" />
                   </span>
                 </a>
 
-                {/* LinkedIn Placeholder */}
-                {socialLinks.linkedin.url ? (
+                {socialLinks.linkedin.url && (
                   <a
                     href={socialLinks.linkedin.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between p-3 rounded-xl bg-slate-900/80 hover:bg-slate-900 border border-slate-800 text-slate-200"
+                    className="flex items-center justify-between p-3 rounded-xl bg-dark-bg hover:bg-dark-hover border border-dark-border text-slate-300 hover:text-white transition-colors"
                   >
                     <div className="flex items-center gap-3">
-                      <Linkedin className="w-4 h-4 text-amber-400" />
-                      <div className="text-sm font-semibold">LinkedIn</div>
+                      <Linkedin className="w-4 h-4 text-blue-400" />
+                      <span className="text-sm font-medium">LinkedIn</span>
                     </div>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-400">
-                      Active
+                    <span className="text-xs font-mono text-slate-500 flex items-center gap-1">
+                      {socialLinks.linkedin.handle}
+                      <ExternalLink className="w-3 h-3" />
                     </span>
                   </a>
-                ) : (
-                  <div className="flex items-center justify-between p-3 rounded-xl bg-slate-900/40 border border-dashed border-slate-800 text-slate-500 text-xs font-mono">
-                    <div className="flex items-center gap-3">
-                      <Linkedin className="w-4 h-4 text-slate-600" />
-                      <span>LinkedIn: [Add in src/data/socialLinks.js]</span>
-                    </div>
-                  </div>
                 )}
 
-                {/* LeetCode Placeholder */}
-                {socialLinks.leetcode.url ? (
+                {socialLinks.leetcode.url && (
                   <a
                     href={socialLinks.leetcode.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between p-3 rounded-xl bg-slate-900/80 hover:bg-slate-900 border border-slate-800 text-slate-200"
+                    className="flex items-center justify-between p-3 rounded-xl bg-dark-bg hover:bg-dark-hover border border-dark-border text-slate-300 hover:text-white transition-colors"
                   >
                     <div className="flex items-center gap-3">
                       <Code2 className="w-4 h-4 text-amber-400" />
-                      <div className="text-sm font-semibold">LeetCode</div>
+                      <span className="text-sm font-medium">LeetCode</span>
                     </div>
+                    <span className="text-xs font-mono text-slate-500 flex items-center gap-1">
+                      {socialLinks.leetcode.handle}
+                      <ExternalLink className="w-3 h-3" />
+                    </span>
                   </a>
-                ) : (
-                  <div className="flex items-center justify-between p-3 rounded-xl bg-slate-900/40 border border-dashed border-slate-800 text-slate-500 text-xs font-mono">
-                    <div className="flex items-center gap-3">
-                      <Code2 className="w-4 h-4 text-slate-600" />
-                      <span>LeetCode: [Add in src/data/socialLinks.js]</span>
-                    </div>
-                  </div>
-                )}
-
-                {/* X / Twitter Placeholder */}
-                {socialLinks.x.url ? (
-                  <a
-                    href={socialLinks.x.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between p-3 rounded-xl bg-slate-900/80 hover:bg-slate-900 border border-slate-800 text-slate-200"
-                  >
-                    <div className="flex items-center gap-3">
-                      <Twitter className="w-4 h-4 text-amber-400" />
-                      <div className="text-sm font-semibold">X / Twitter</div>
-                    </div>
-                  </a>
-                ) : (
-                  <div className="flex items-center justify-between p-3 rounded-xl bg-slate-900/40 border border-dashed border-slate-800 text-slate-500 text-xs font-mono">
-                    <div className="flex items-center gap-3">
-                      <Twitter className="w-4 h-4 text-slate-600" />
-                      <span>X / Twitter: [Add in src/data/socialLinks.js]</span>
-                    </div>
-                  </div>
-                )}
-
-                {/* YouTube Placeholder */}
-                {socialLinks.youtube.url ? (
-                  <a
-                    href={socialLinks.youtube.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between p-3 rounded-xl bg-slate-900/80 hover:bg-slate-900 border border-slate-800 text-slate-200"
-                  >
-                    <div className="flex items-center gap-3">
-                      <Youtube className="w-4 h-4 text-amber-400" />
-                      <div className="text-sm font-semibold">YouTube</div>
-                    </div>
-                  </a>
-                ) : (
-                  <div className="flex items-center justify-between p-3 rounded-xl bg-slate-900/40 border border-dashed border-slate-800 text-slate-500 text-xs font-mono">
-                    <div className="flex items-center gap-3">
-                      <Youtube className="w-4 h-4 text-slate-600" />
-                      <span>YouTube: [Add in src/data/socialLinks.js]</span>
-                    </div>
-                  </div>
                 )}
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Right Column: Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="lg:col-span-7 glass-panel-glow bg-slate-950/95 rounded-2xl p-6 sm:p-8 border border-amber-500/25 shadow-2xl tactical-bracket"
-          >
-            <div className="mb-6">
+          {/* Right Column: Clean Contact Form */}
+          <div className="lg:col-span-7 portfolio-card rounded-2xl p-6 sm:p-8 space-y-6">
+            <div>
               <h3 className="text-xl sm:text-2xl font-display font-bold text-white mb-1">
-                Transmit Packet to Batcave
+                Send a Message
               </h3>
-              <p className="text-xs text-amber-400/90 font-mono">
-                Routed through EmailJS encrypted transmission protocol.
+              <p className="text-xs text-slate-400">
+                Fill in the details below and I will get back to you promptly.
               </p>
             </div>
 
-            {/* Success Banner */}
             {status === 'success' && (
-              <div className="p-4 rounded-xl bg-emerald-950/50 border border-emerald-500/50 text-emerald-300 text-sm flex items-start gap-3 mb-6">
+              <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 text-sm flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                 <div>
-                  <strong className="font-semibold block">Packet Transmitted Successfully!</strong>
-                  Transmission acknowledged. Raj will respond to your frequency shortly.
+                  <strong className="font-semibold block">Message Sent!</strong>
+                  Thank you for reaching out. I will respond to your email as soon as possible.
                 </div>
               </div>
             )}
 
-            {/* Error Banner */}
             {status === 'error' && (
-              <div className="p-4 rounded-xl bg-red-950/50 border border-red-500/50 text-red-300 text-sm flex items-start gap-3 mb-6">
+              <div className="p-4 rounded-xl bg-red-950/40 border border-red-500/40 text-red-300 text-sm flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
                 <div>
-                  <strong className="font-semibold block">Transmission Anomaly</strong>
+                  <strong className="font-semibold block">Failed to send</strong>
                   {errorMessage}
                 </div>
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Anti-spam Honeypot field */}
               <input
                 type="text"
                 name="_gotcha"
@@ -341,14 +255,13 @@ export default function Contact() {
                 aria-hidden="true"
               />
 
-              {/* Name & Email Row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-1.5"
+                    className="block text-xs font-medium text-slate-300 mb-1.5"
                   >
-                    Operative Name *
+                    Your Name *
                   </label>
                   <input
                     id="name"
@@ -358,11 +271,11 @@ export default function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, name: e.target.value })
                     }
-                    placeholder="e.g. Bruce Wayne"
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 focus:border-amber-500 text-white text-sm outline-none transition-all placeholder:text-slate-600 focus:ring-1 focus:ring-amber-500"
+                    placeholder="e.g. Hetavi Panchotia"
+                    className="w-full px-4 py-2.5 rounded-xl bg-dark-bg border border-dark-border focus:border-blue-500 text-white text-sm outline-none transition-colors placeholder:text-slate-600"
                   />
                   {errors.name && (
-                    <span className="text-[11px] font-mono text-red-400 mt-1 block">
+                    <span className="text-[11px] text-red-400 mt-1 block">
                       {errors.name}
                     </span>
                   )}
@@ -371,9 +284,9 @@ export default function Contact() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-1.5"
+                    className="block text-xs font-medium text-slate-300 mb-1.5"
                   >
-                    Transmission Frequency (Email) *
+                    Your Email *
                   </label>
                   <input
                     id="email"
@@ -383,24 +296,23 @@ export default function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
                     }
-                    placeholder="e.g. bwayne@wayneenterprises.com"
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 focus:border-amber-500 text-white text-sm outline-none transition-all placeholder:text-slate-600 focus:ring-1 focus:ring-amber-500"
+                    placeholder="e.g. you@company.com"
+                    className="w-full px-4 py-2.5 rounded-xl bg-dark-bg border border-dark-border focus:border-blue-500 text-white text-sm outline-none transition-colors placeholder:text-slate-600"
                   />
                   {errors.email && (
-                    <span className="text-[11px] font-mono text-red-400 mt-1 block">
+                    <span className="text-[11px] text-red-400 mt-1 block">
                       {errors.email}
                     </span>
                   )}
                 </div>
               </div>
 
-              {/* Subject */}
               <div>
                 <label
                   htmlFor="subject"
-                  className="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-1.5"
+                  className="block text-xs font-medium text-slate-300 mb-1.5"
                 >
-                  Objective / Subject *
+                  Subject *
                 </label>
                 <input
                   id="subject"
@@ -410,23 +322,22 @@ export default function Contact() {
                   onChange={(e) =>
                     setFormData({ ...formData, subject: e.target.value })
                   }
-                  placeholder="e.g. Full Stack Engineering Contract / AegisLens Discussion"
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 focus:border-amber-500 text-white text-sm outline-none transition-all placeholder:text-slate-600 focus:ring-1 focus:ring-amber-500"
+                  placeholder="e.g. Software Engineer Opportunity / Project Inquiry"
+                  className="w-full px-4 py-2.5 rounded-xl bg-dark-bg border border-dark-border focus:border-blue-500 text-white text-sm outline-none transition-colors placeholder:text-slate-600"
                 />
                 {errors.subject && (
-                  <span className="text-[11px] font-mono text-red-400 mt-1 block">
+                  <span className="text-[11px] text-red-400 mt-1 block">
                     {errors.subject}
                   </span>
                 )}
               </div>
 
-              {/* Message */}
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-1.5"
+                  className="block text-xs font-medium text-slate-300 mb-1.5"
                 >
-                  Payload / Message *
+                  Message *
                 </label>
                 <textarea
                   id="message"
@@ -436,43 +347,36 @@ export default function Contact() {
                   onChange={(e) =>
                     setFormData({ ...formData, message: e.target.value })
                   }
-                  placeholder="Specify system parameters, project scope, or opportunity details..."
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 focus:border-amber-500 text-white text-sm outline-none transition-all placeholder:text-slate-600 resize-none focus:ring-1 focus:ring-amber-500"
+                  placeholder="Tell me about your project, team, or opportunity..."
+                  className="w-full px-4 py-2.5 rounded-xl bg-dark-bg border border-dark-border focus:border-blue-500 text-white text-sm outline-none transition-colors placeholder:text-slate-600 resize-none"
                 />
                 {errors.message && (
-                  <span className="text-[11px] font-mono text-red-400 mt-1 block">
+                  <span className="text-[11px] text-red-400 mt-1 block">
                     {errors.message}
                   </span>
                 )}
               </div>
 
-              {/* Submit Button with TacticalButton */}
-              <div className="pt-2">
-                <TacticalButton
-                  type="submit"
-                  variant="gold"
-                  icon={status === 'submitting' ? Loader2 : Send}
-                  disabled={status === 'submitting'}
-                  className="w-full py-3.5 text-sm"
-                >
-                  {status === 'submitting'
-                    ? 'Broadcasting Encrypted Packet...'
-                    : 'Dispatch Encrypted Packet'}
-                </TacticalButton>
-              </div>
-
-              <div className="flex items-center justify-between text-[11px] font-mono text-slate-500 pt-2">
-                <span className="flex items-center gap-1 text-amber-500/80">
-                  <ShieldAlert className="w-3 h-3" />
-                  <span>Honeypot protocol active</span>
-                </span>
-                <span className="flex items-center gap-1 text-slate-400">
-                  <Clock className="w-3 h-3" />
-                  <span>Cooldown rate-limit (30s)</span>
-                </span>
-              </div>
+              <button
+                type="submit"
+                disabled={status === 'submitting'}
+                className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+              >
+                {status === 'submitting' ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Sending...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4" />
+                    <span>Send Message</span>
+                  </>
+                )}
+              </button>
             </form>
-          </motion.div>
+          </div>
+
         </div>
       </div>
     </section>

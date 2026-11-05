@@ -1,72 +1,47 @@
 /**
- * Skills Data File
- * 
- * HARD RULE: Evidence-based skills only. Derived strictly from real repository code:
- * - TypeScript, JavaScript, HTML, CSS (from AegisLens, movie-react, forks)
- * - React, Vite, Tailwind CSS, Recharts, Lucide React (from AegisLens, movie-react)
- * - Node.js, Express (from AegisLens backend)
- * - No database was evidenced in public repos, so Databases is kept empty as a TODO.
+ * Skills Data File - Raj Aghara
  */
 
 export const skillCategories = [
   {
     name: 'Programming Languages',
-    description: 'Core languages utilized across production and experimental repositories.',
+    description: 'Core languages used in development and problem-solving',
     skills: [
-      { name: 'TypeScript', level: 'Proficient', icon: 'FileCode2', evidence: 'AegisLens, reverse-engineering' },
-      { name: 'JavaScript', level: 'Proficient', icon: 'Code', evidence: 'task-arena-AI, movie-react, AegisLens' },
-      { name: 'HTML5', level: 'Experienced', icon: 'Layout', evidence: 'AegisLens, Web projects' },
-      { name: 'CSS3', level: 'Experienced', icon: 'Palette', evidence: 'movie-react, Styling' }
+      { name: 'TypeScript', level: 'Proficient', icon: 'FileCode2', color: 'from-blue-500 to-cyan-500' },
+      { name: 'JavaScript', level: 'Proficient', icon: 'Code', color: 'from-amber-400 to-yellow-500' },
+      { name: 'HTML5', level: 'Experienced', icon: 'Layout', color: 'from-orange-500 to-amber-500' },
+      { name: 'CSS3', level: 'Experienced', icon: 'Palette', color: 'from-sky-500 to-blue-600' }
     ]
   },
   {
     name: 'Frontend Development',
-    description: 'Modern user interface and single-page application engineering.',
+    description: 'Modern user interface frameworks and styling libraries',
     skills: [
-      { name: 'React.js', level: 'Proficient', icon: 'Atom', evidence: 'AegisLens, movie-react' },
-      { name: 'Vite', level: 'Proficient', icon: 'Zap', evidence: 'AegisLens' },
-      { name: 'Tailwind CSS', level: 'Proficient', icon: 'Sparkles', evidence: 'AegisLens' },
-      { name: 'Recharts', level: 'Familiar', icon: 'BarChart3', evidence: 'AegisLens Risk Visualizations' },
-      { name: 'Lucide React', level: 'Proficient', icon: 'Feather', evidence: 'AegisLens Iconography' }
+      { name: 'React.js', level: 'Proficient', icon: 'Atom', color: 'from-cyan-400 to-blue-500' },
+      { name: 'Vite', level: 'Proficient', icon: 'Zap', color: 'from-purple-500 to-indigo-600' },
+      { name: 'Tailwind CSS', level: 'Proficient', icon: 'Sparkles', color: 'from-teal-400 to-cyan-500' },
+      { name: 'Recharts', level: 'Working Knowledge', icon: 'BarChart3', color: 'from-emerald-400 to-teal-500' },
+      { name: 'Lucide React', level: 'Proficient', icon: 'Feather', color: 'from-indigo-400 to-violet-500' }
     ]
   },
   {
     name: 'Backend Development',
-    description: 'Server runtime and API services evidenced in project codebases.',
+    description: 'Server runtime environments and API engineering',
     skills: [
-      { name: 'Node.js', level: 'Working Knowledge', icon: 'Server', evidence: 'AegisLens Backend Server' },
-      { name: 'Express.js', level: 'Working Knowledge', icon: 'Cpu', evidence: 'AegisLens REST Services' }
+      { name: 'Node.js', level: 'Working Knowledge', icon: 'Server', color: 'from-emerald-500 to-green-600' },
+      { name: 'Express.js', level: 'Working Knowledge', icon: 'Cpu', color: 'from-slate-400 to-slate-200' },
+      { name: 'RESTful APIs', level: 'Proficient', icon: 'Network', color: 'from-blue-400 to-indigo-500' }
     ]
-  },
-  {
-    name: 'Databases',
-    description: 'Database engines and ORMs (Update once repos demonstrate usage).',
-    // Kept empty per strict rules: No databases evidenced in public repos.
-    skills: [
-      // TODO: Add database technologies (e.g. MongoDB, PostgreSQL, SQLite, Prisma) once evidenced in repositories.
-    ],
-    placeholderNote: 'Add database entries in src/data/skills.js once evidenced.'
   },
   {
     name: 'Tools & Platforms',
-    description: 'Development environments, version control, and cloud hosting.',
+    description: 'Version control, deployment platforms, and developer tooling',
     skills: [
-      { name: 'Git', level: 'Proficient', icon: 'GitBranch', evidence: 'GitHub repositories' },
-      { name: 'GitHub', level: 'Proficient', icon: 'Github', evidence: 'Version control & collaboration' },
-      { name: 'Vercel', level: 'Proficient', icon: 'Cloud', evidence: 'AegisLens production deployment' },
-      { name: 'Postman', level: 'Familiar', icon: 'Send', evidence: 'API verification & testing' },
-      { name: 'npm', level: 'Proficient', icon: 'Package', evidence: 'Package management' }
-    ]
-  },
-  {
-    name: 'Architectural Concepts',
-    description: 'Core engineering practices and workflow patterns.',
-    skills: [
-      { name: 'RESTful API Design', level: 'Familiar', icon: 'Network', evidence: 'Client-server communications' },
-      { name: 'Component-Driven UI', level: 'Proficient', icon: 'Boxes', evidence: 'Modular design systems' },
-      { name: 'Responsive Web Design', level: 'Proficient', icon: 'Smartphone', evidence: 'Cross-device layout engineering' },
-      { name: 'CVSS Risk Calculations', level: 'Specialized', icon: 'ShieldAlert', evidence: 'AegisLens scoring implementation' }
+      { name: 'Git', level: 'Proficient', icon: 'GitBranch', color: 'from-orange-500 to-red-500' },
+      { name: 'GitHub', level: 'Proficient', icon: 'Github', color: 'from-slate-300 to-slate-100' },
+      { name: 'Vercel', level: 'Proficient', icon: 'Cloud', color: 'from-slate-200 to-white' },
+      { name: 'Postman', level: 'Familiar', icon: 'Send', color: 'from-orange-400 to-amber-500' },
+      { name: 'npm', level: 'Proficient', icon: 'Package', color: 'from-red-500 to-pink-500' }
     ]
   }
 ];
-

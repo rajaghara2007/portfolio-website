@@ -1,170 +1,175 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, FileDown, Layers, ShieldCheck, Zap, Crosshair } from 'lucide-react';
-import TacticalButton from '../components/TacticalButton';
+import { ArrowDown, Github, Linkedin, Code2, Mail, FileText, ExternalLink, Sparkles, MapPin } from 'lucide-react';
 import { socialLinks } from '../data/socialLinks';
 import { aboutData } from '../data/about';
 
 export default function Hero() {
-  const scrollTo = (id) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden z-10"
-    >
-      <div className="max-w-6xl mx-auto w-full">
+    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Left Column: Text & Tactical Actions */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="lg:col-span-7 space-y-6 text-center lg:text-left"
-          >
-            {/* WayneTech Status Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-950/90 border border-amber-500/40 text-amber-400 text-xs font-mono tracking-widest shadow-bat-gold">
-              <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
-              <span>WAYNETECH SECURITY // VULNERABILITY INTELLIGENCE</span>
+          {/* Left Column: Introductions & Action Buttons */}
+          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+            {/* Status Pill */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Available for Software Engineering Opportunities</span>
             </div>
 
             {/* Name & Headline */}
             <div className="space-y-2">
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight text-white">
-                Hi, I'm <span className="text-gradient-gold">Raj Aghara</span>
+              <p className="text-slate-400 font-medium text-lg">
+                👋 Hello, I'm
+              </p>
+              <h1 className="text-4xl sm:text-6xl font-display font-extrabold tracking-tight text-white">
+                <span className="text-brand-gradient">Raj Aghara</span>
               </h1>
-              <p className="text-xl sm:text-2xl font-display font-medium text-slate-300">
-                Full Stack Developer / Software Developer
+              <p className="text-xl sm:text-2xl font-display font-semibold text-slate-300">
+                Full Stack Developer &amp; CSE Student
               </p>
             </div>
 
-            {/* Short Intro */}
-            <p className="text-slate-400 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              Engineering high-performance vulnerability intelligence platforms, scalable web architectures, and dark cinematic 3D digital experiences. Architect of{' '}
+            {/* Bio Summary */}
+            <p className="text-slate-400 text-base sm:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
+              I specialize in crafting high-performance full-stack web applications, intuitive user interfaces, and robust systems. Creator of{' '}
               <a
                 href="https://aegis-lens.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-amber-400 font-semibold hover:underline decoration-amber-500 underline-offset-4"
+                className="text-blue-400 font-semibold hover:underline"
               >
                 AegisLens
               </a>
-              .
+              , an enterprise vulnerability intelligence platform.
             </p>
 
-            {/* Tactical Action Buttons with Hover & Click Effects */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-              <TacticalButton
-                variant="gold"
-                icon={Layers}
-                onClick={() => scrollTo('projects')}
-              >
-                Explore Projects
-              </TacticalButton>
-
-              <TacticalButton
-                variant="dark"
-                icon={FileDown}
-                href="/resume/Raj-Aghara-Resume.pdf"
-                download="Raj-Aghara-Resume.pdf"
-              >
-                Download Resume
-              </TacticalButton>
+            {/* Location & Quick Meta */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs font-mono text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-blue-400" />
+                <span>{aboutData.location}</span>
+              </span>
+              <span>•</span>
+              <span>Swaminarayan University / CodingGita</span>
             </div>
 
-            {/* Social Links & Real Profile */}
-            <div className="flex items-center justify-center lg:justify-start gap-4 pt-4 text-slate-400">
-              <span className="text-xs font-mono uppercase tracking-widest text-slate-500 flex items-center gap-1.5">
-                <Crosshair className="w-3.5 h-3.5 text-amber-500" />
-                Target Links:
-              </span>
-              
-              {/* GitHub Link */}
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
+              <a
+                href="#projects"
+                className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors shadow-lg shadow-blue-600/20"
+              >
+                Explore Projects
+              </a>
+              <a
+                href="#contact"
+                className="px-6 py-3 rounded-xl bg-dark-card hover:bg-dark-hover border border-dark-border text-slate-200 hover:text-white font-medium text-sm transition-colors"
+              >
+                Get In Touch
+              </a>
+              <a
+                href="/resume/Raj-Aghara-Resume.pdf"
+                download="Raj-Aghara-Resume.pdf"
+                className="px-6 py-3 rounded-xl bg-dark-card hover:bg-dark-hover border border-dark-border text-slate-300 hover:text-white font-medium text-sm transition-colors flex items-center gap-2"
+              >
+                <FileText className="w-4 h-4 text-blue-400" />
+                <span>Download CV</span>
+              </a>
+            </div>
+
+            {/* Social Icons Bar */}
+            <div className="flex items-center justify-center lg:justify-start gap-3 pt-3">
               {socialLinks.github.url && (
                 <a
                   href={socialLinks.github.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-amber-500 text-slate-300 hover:text-amber-400 transition-all hover:shadow-bat-gold active:scale-90"
+                  className="p-2.5 rounded-xl bg-dark-card border border-dark-border text-slate-300 hover:text-white hover:border-slate-500 transition-colors"
                   aria-label="GitHub Profile"
                 >
                   <Github className="w-4 h-4" />
                 </a>
               )}
-
-              {/* LinkedIn Link (Hides if empty) */}
               {socialLinks.linkedin.url && (
                 <a
                   href={socialLinks.linkedin.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-amber-500 text-slate-300 hover:text-amber-400 transition-all hover:shadow-bat-gold active:scale-90"
+                  className="p-2.5 rounded-xl bg-dark-card border border-dark-border text-slate-300 hover:text-blue-400 hover:border-blue-500/40 transition-colors"
                   aria-label="LinkedIn Profile"
                 >
                   <Linkedin className="w-4 h-4" />
                 </a>
               )}
+              {socialLinks.leetcode.url && (
+                <a
+                  href={socialLinks.leetcode.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 rounded-xl bg-dark-card border border-dark-border text-slate-300 hover:text-amber-400 hover:border-amber-500/40 transition-colors"
+                  aria-label="LeetCode Profile"
+                >
+                  <Code2 className="w-4 h-4" />
+                </a>
+              )}
+              {socialLinks.email.address && (
+                <a
+                  href={`mailto:${socialLinks.email.address}`}
+                  className="p-2.5 rounded-xl bg-dark-card border border-dark-border text-slate-300 hover:text-emerald-400 hover:border-emerald-500/40 transition-colors"
+                  aria-label="Send Email"
+                >
+                  <Mail className="w-4 h-4" />
+                </a>
+              )}
             </div>
-          </motion.div>
+          </div>
 
-          {/* Right Column: Batman Profile Visual Card */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-            className="lg:col-span-5 flex justify-center"
-          >
+          {/* Right Column: Profile Image Card with Tech Floating Badges */}
+          <div className="lg:col-span-5 flex justify-center">
             <div className="relative w-64 h-64 sm:w-80 sm:h-80">
-              {/* Bat-Signal Glow Aura */}
-              <div className="absolute inset-0 rounded-3xl bg-amber-500/20 blur-3xl animate-pulse-slow" />
-              
-              <div className="relative w-full h-full rounded-3xl p-1 bg-gradient-to-tr from-amber-500/40 via-red-500/20 to-amber-400/40 shadow-bat-gold">
-                <div className="w-full h-full rounded-[22px] bg-slate-950/95 backdrop-blur-xl border border-amber-500/30 overflow-hidden flex flex-col items-center justify-center p-6 text-center">
+              {/* Subtle ambient blur glow */}
+              <div className="absolute inset-0 bg-blue-600/10 rounded-3xl blur-3xl -z-10" />
+
+              <div className="relative w-full h-full rounded-3xl p-1 bg-gradient-to-tr from-blue-500/30 via-indigo-500/20 to-purple-500/30 border border-dark-border shadow-2xl">
+                <div className="w-full h-full rounded-[22px] bg-dark-surface p-6 flex flex-col items-center justify-center text-center">
                   
-                  {/* Photo / Stylized Avatar */}
-                  <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full p-1 bg-gradient-to-tr from-amber-500 to-amber-300 mb-4 shadow-bat-gold">
+                  <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full p-1 bg-gradient-to-tr from-blue-500 to-indigo-500 mb-4 shadow-md">
                     <img
                       src={aboutData.profileImage}
                       alt="Raj Aghara"
-                      className="w-full h-full object-cover rounded-full bg-slate-900"
+                      className="w-full h-full object-cover rounded-full bg-dark-bg"
                       onError={(e) => {
                         e.currentTarget.src = '/images/profile.svg';
                       }}
                     />
-                    <div className="absolute bottom-1 right-1 w-5 h-5 rounded-full bg-amber-400 border-2 border-slate-950 shadow-bat-gold" title="Active on Grid" />
+                    <div className="absolute bottom-1 right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-dark-surface" title="Active & Available" />
                   </div>
 
                   <h3 className="font-display font-bold text-white text-lg">
                     Raj Aghara
                   </h3>
-                  <p className="text-xs font-mono text-amber-400 mt-0.5">
+                  <p className="text-xs font-mono text-blue-400 mt-0.5">
                     Full Stack Developer
                   </p>
 
-                  <div className="mt-4 flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-900/90 border border-slate-800 text-[11px] font-mono text-slate-400">
-                    <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
-                    <span>AegisLens Creator</span>
+                  {/* Quick skill chips */}
+                  <div className="flex flex-wrap justify-center gap-1.5 mt-4">
+                    {['React', 'TypeScript', 'Node.js', 'Tailwind'].map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2.5 py-0.5 rounded-full bg-dark-card border border-dark-border text-[11px] font-mono text-slate-300"
+                      >
+                        {tech}
+                      </span>
+                    ))}
                   </div>
+
                 </div>
               </div>
             </div>
-          </motion.div>
-        </div>
+          </div>
 
-        {/* Scroll Indicator */}
-        <div className="mt-16 text-center">
-          <button
-            onClick={() => scrollTo('about')}
-            className="inline-flex flex-col items-center gap-2 text-xs font-mono text-slate-500 hover:text-amber-400 transition-colors cursor-pointer active:scale-95"
-            aria-label="Scroll to About section"
-          >
-            <span>DISPATCH SCROLL TELEMETRY</span>
-            <ArrowDown className="w-4 h-4 animate-bounce text-amber-400" />
-          </button>
         </div>
       </div>
     </section>

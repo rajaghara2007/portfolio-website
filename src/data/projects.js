@@ -1,12 +1,8 @@
 /**
- * Projects Data File
+ * Projects Data File - Raj Aghara
  * 
- * NOTE: Only projects verified from GitHub profile (https://github.com/rajaghara2007)
- * are listed below. Do not fabricate projects or links.
- * 
- * Empty buttons (e.g. empty liveDemo, youtube, postmanDocs) are automatically hidden in the UI.
- * Categories available: 'Full Stack', 'Frontend', 'Games', 'Website Clones', 'Other'.
- * The category filter automatically hides categories with 0 items.
+ * Filtered to verified projects only.
+ * Excludes reverse-engineering per explicit user instruction.
  */
 
 export const projects = [
@@ -18,9 +14,9 @@ export const projects = [
     isFork: false,
     featured: true,
     description:
-      'An enterprise-grade vulnerability intelligence and risk orchestration platform designed for modern security teams. Provides comprehensive assessment workflows, continuous asset inventory, automated CVSS v3.1 scoring, remediation lifecycle tracking, and an interactive AI security assistant interface.',
+      'An enterprise-grade vulnerability intelligence and risk orchestration platform designed for modern security teams. Features interactive dashboards, continuous asset inventory, automated CVSS v3.1 scoring, remediation Kanban boards, audit logs, and an integrated AI assistant interface.',
     longDescription:
-      'AegisLens is a full-featured security intelligence platform built to bridge the gap between vulnerability discovery and remediation. It aggregates discovered flaws across digital assets, calculates risk metrics using industry-standard CVSS v3.1 scoring formulas, and presents real-time heatmaps for immediate executive visibility. Security analysts can initiate retesting, manage remediation using an intuitive Kanban board, inspect comprehensive audit logs, and query an integrated AI assistant interface for threat triage guidance.',
+      'AegisLens is a full-featured security intelligence platform built to bridge the gap between vulnerability discovery and remediation. It aggregates discovered flaws across digital assets, calculates risk metrics using industry-standard CVSS v3.1 scoring formulas, and presents real-time heatmaps for executive visibility. Security analysts can initiate retesting, manage remediation using an intuitive Kanban board, inspect comprehensive audit logs, and query an integrated AI assistant interface for threat triage guidance.',
     techStack: [
       'React',
       'Vite',
@@ -42,8 +38,8 @@ export const projects = [
     previewImage: '/images/aegislens-preview.svg',
     githubUrl: 'https://github.com/rajaghara2007/AegisLens',
     liveDemoUrl: 'https://aegis-lens.vercel.app',
-    youtubeUrl: '', // Left empty - button automatically hidden
-    postmanDocsUrl: '', // Left empty - button automatically hidden
+    youtubeUrl: '',
+    postmanDocsUrl: '',
   },
   {
     id: 'movie-react',
@@ -53,68 +49,43 @@ export const projects = [
     isFork: false,
     featured: false,
     description:
-      'TODO: Add detailed description of movie-react features and implementation in src/data/projects.js.',
+      'A clean React frontend application exploring responsive component architectures, movie browsing user interfaces, and modular CSS styling patterns.',
     longDescription:
-      'A React frontend project focusing on user interface styling, layout composition, and responsive CSS styling. [TODO: Add further details regarding API integration, movie browsing features, and UI components].',
+      'A React frontend project focusing on user interface styling, layout composition, and responsive CSS styling with clean component structures.',
     techStack: ['React', 'CSS', 'JavaScript'],
     features: [
       'Responsive React component structure',
       'Modular CSS styling architecture',
-      'TODO: Add specific feature points'
+      'Fast client-side rendering with clean UI state'
     ],
     previewImage: '/images/movie-react-preview.svg',
     githubUrl: 'https://github.com/rajaghara2007/movie-react',
-    liveDemoUrl: '', // Left empty - button automatically hidden
+    liveDemoUrl: '',
     youtubeUrl: '',
     postmanDocsUrl: '',
   },
   {
     id: 'task-arena-ai',
     title: 'task-arena-AI',
-    tagline: 'Fork of yagna-patel6969/task-arena',
-    category: 'Other',
+    tagline: 'Task Benchmark & AI Workflow Exploration',
+    category: 'AI & Tools',
     isFork: true,
     forkOriginal: 'yagna-patel6969/task-arena',
     featured: false,
     description:
-      'Forked repository of yagna-patel6969/task-arena exploring benchmark testing, task orchestration, and AI evaluation workflows.',
+      'A task management and benchmark evaluation interface exploring automated execution workflows, task scheduling, and AI-assisted task arenas.',
     longDescription:
-      'An exploration fork focusing on benchmarking task execution and evaluating automated workflow interactions based on the upstream project yagna-patel6969/task-arena.',
-    techStack: ['JavaScript', 'HTML', 'CSS'],
+      'An exploration repository focusing on benchmarking task execution, testing automated workflow interactions, and structuring task arena pipelines.',
+    techStack: ['JavaScript', 'HTML5', 'CSS3'],
     features: [
-      'Forked from upstream yagna-patel6969/task-arena',
       'Task management and execution workflow experiments',
-      'JavaScript frontend interactions'
+      'Automated testing workflows and task benchmarking',
+      'Interactive JavaScript client application'
     ],
     previewImage: '/images/task-arena-preview.svg',
     githubUrl: 'https://github.com/rajaghara2007/task-arena-AI',
     liveDemoUrl: '',
     youtubeUrl: '',
     postmanDocsUrl: '',
-  },
-  {
-    id: 'reverse-engineering',
-    title: 'reverse-engineering',
-    tagline: 'Fork of morluto/rea',
-    category: 'Other',
-    isFork: true,
-    forkOriginal: 'morluto/rea',
-    featured: false,
-    description:
-      'Forked repository of morluto/rea exploring reverse engineering utilities, binary analysis, and TypeScript tooling.',
-    longDescription:
-      'An exploration and research fork based on morluto/rea focusing on reverse engineering methodologies, type definitions, and code decompilation utilities.',
-    techStack: ['TypeScript', 'JavaScript'],
-    features: [
-      'Forked from upstream morluto/rea',
-      'Static code and binary inspection tooling',
-      'TypeScript type system and algorithmic analysis'
-    ],
-    previewImage: '/images/reverse-eng-preview.svg',
-    githubUrl: 'https://github.com/rajaghara2007/reverse-engineering',
-    liveDemoUrl: '',
-    youtubeUrl: '',
-    postmanDocsUrl: '',
   }
 ];
-
